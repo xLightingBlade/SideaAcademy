@@ -1,0 +1,3 @@
+Fornitori(ID_FORNITORE, partitaIva, codProdottoFornito*)
+Clienti(ID_CLIENTE, codProdottoAcquistato*, quantitaAcquistata?)
+ListinoPrezzi(COD_PRODOTTO, Prezzo, idFornitore*, quantitaDisponibile?)

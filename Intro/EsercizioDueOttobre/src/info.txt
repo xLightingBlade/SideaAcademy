@@ -1,0 +1,11 @@
+Contenuto Database
+ID : 2 Nome : Stefano 	Macina Leone Messaggio : clarc kent
+ID : 3 Nome : Emanuela 	Moschettini Messaggio : assente
+ID : 4 Nome : Michele 	Di Corato Messaggio : o' professor
+ID : 5 Nome : Nunzia 	Riglietti Messaggio : simpatia
+ID : 6 Nome : Marika 	Luisi Messaggio : smile
+ID : 7 Nome : Gabriele 	Tomasino Messaggio : er domanda
+ID : 8 Nome : Elison 	Di Biase Messaggio : disco disco
+ID : 9 Nome : Sara 	Gattagrisi Messaggio : ho un problema
+ID : 10 Nome : Anna Rita 	Patarino Messaggio : grinta
+ID : 11 Nome : Simone 	Lepore Messaggio : ho finito le cavolate da dire

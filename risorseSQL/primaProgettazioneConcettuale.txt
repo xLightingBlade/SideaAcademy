@@ -1,0 +1,90 @@
+
+----ENTITA INDIVIDUATE---
+Pazienti, Ospedali, Reparti, PersonaleReparto, Specializzazioni, AssociazioniVolontarie, Esami, Laboratori, PersonaleLaboratori,
+PrenotazioniEsami, RuoliMedici
+
+
+---SEPARAZIONE PER ENTITA---
+Info Pazienti: numero tessera, nome, cognome, indirizzo, data e luogo nascita, eta;
+Info Ospedali: Codice numerico, nome, indirizzo;
+Info Reparti: codice numerico interno all'ospedale, nome reparto, numero telefono;
+Info personale reparto: codFiscale, nome, cognome, domicilio
+	Se medici : specializzazioni
+	se volontari : nome dell'associazione
+	
+Info esami: codice numerico, descrizione testuale
+	Se esami specialistici: medico che l'ha fatta, descrizione dieta(se necessaria)
+
+Info laboratori: codice numerico interno all'ospedale, nome, piano, numero stanza;
+Info personale laboratorio: giornate di lavoro, laboratorio dove lavora;
+	Nella stessa giornata si può essere in più laboratori;
+	
+Info prenotazione esame: data, ora, laboratorio, costo, urgente o meno
+	Possibili più prenotazioni di stesso esame per stesso paziente, in date diverse
+	Stesso esame non ripetibile in stessa data da stesso paziente;
+	
+Ruoli medico(assistente, primario): data inizio, data fine
+	Un solo ruolo per volta, possibile avere stessso ruolo in periodi diversi;
+
+
+
+---ASSOCIAZIONI E LORO MOLTEPLICITA---
+
+Tra Ospedale e Reparto c'è una relazione 'part-of', come tra Laboratorio e Ospedale (forse)
+
+Tra Esami e EsamiSpecialistici c'è una relazione di generalizzazione parziale, decido per ora di accorparla nel genitore, finchè non vengono definite
+le operazioni sul db
+
+PersonaleReparti potrebbe essere visto come una generalizzazione, con entita figlie quali "medici" e "volontari".
+Accorpo per stesso ragionamento di sopra
+
+
+A ogni ospedale sono associati uno o più reparti, viceversa un reparto è associato ad un solo ospedale
+A ogni ospedale sono associati uno o più laboratori, viceversa idem sopra
+A ogni paziente sono associati zero o più prenotazioni, viceversa una prenotazione è associata ad uno e un solo paziente
+Ad ogni reparto è associato uno o più personale, viceversa un personale di reparto è associato ad un solo reparto
+Ad ogni laboratorio è associato uno o più personale di laboratorio, al tempo stesso un tecnico di laboratorio può essere associato a più laboratori, come da specifiche
+Per il momento, ad un personale di reparto può essere associata una o nessuna associazione volontaria e zero o più specializzazioni.
+Una specializzazione o una associazione volontaria a sua volta essere associata a uno o più personale di reparto.
+
+
+
+Ospedali <--Composizione--> Reparti <--Assunzione--> PersonaleReparti (da qui c'è una associazione per Specializzazioni e una per Associazioni)
+
+Ospedali <--Composizione--> Laboratori <--Assunzione --> PersonaleLaboratori   (relazioni ternarie?)
+
+Paziente <--Effettuazione--> Prenotazione
+
+
+
+----SCHEMI DELLE RELAZIONI----
+Legenda:
+! = chiave primaria
+* = chiave esterna
+
+Pazienti(numTessera!, nome, cognome, indirizzo, dataNascita, luogoNascita, eta)
+
+Ospedali(codOspedale!, nome, indirizzo)
+
+Reparti(codReparto!, codOspedale!*, nomeReparto, numTelefono)
+
+PersonaleReparti(codFiscale!, codReparto*, nome, cognome, indirizzoDomicilio, codSpecializzazione*, nomeAssociazioneVolontaria*)
+
+AssunzioneReparto(codReparto!, codFiscalePersonale!) 			(serve? Tecnicamente è un'associazione trasformata in relazione, un passo della progettazione logica)
+
+Specializzazioni(codSpecializzazione!, nomeSpecializzazione)
+
+AssociazioniVolontarie(nomeAssociazione!, descrizione(?))
+
+Esami(codEsame!, descrizione, medico*, descrDieta)
+
+Laboratori(codLaboratorio!, codOspedale!, nomeLab, piano, numStanza)
+
+PersonaleLaboratorio(codLaboratorio!, codOspedale*, giornataLavorativa!, nome, cognome)  (entrambi chiave primaria? Da traccia, uno può stare in più laboratori nella stessa giornata)
+
+Prenotazione(codEsame!, tesseraPaziente*, data, ora, codLaboratorio*, costoTicket, isUrgente)
+
+RuoliMedici(codMedico!, nomeRuolo!, dataInizio!, dataFine!)
+
+(un po' di impicci da risolvere. Siccome Laboratori e Reparti hanno una primary key composta, almeno credo, foreign key che le referenziano devono referenziare
+tutti gli attributi della primary key)

@@ -1,0 +1,57 @@
+{
+     "circuito": "Bahrain",
+     "dataGara": "2023/10/02",
+     "numGiri": 33,
+     "numPiloti": 7,
+     "pilotiGara": [
+          {
+               "nome": "Leclerc",
+               "scuderia": "Ferrari",
+               "nomeMonoposto": "SF23",
+               "costruttore": "Ferrari",
+               "velocitaMonoposto": 330
+          },
+          {
+               "nome": "Verstappen",
+               "scuderia": "Red Bull",
+               "nomeMonoposto": "RB19",
+               "costruttore": "Red Bull",
+               "velocitaMonoposto": 340
+          },
+          {
+               "nome": "Giovinazzi",
+               "scuderia": "Alfa Romeo",
+               "nomeMonoposto": "C43",
+               "costruttore": "Alfa Romeo - Ferrari",
+               "velocitaMonoposto": 325
+          },
+          {
+               "nome": "Alonso",
+               "scuderia": "Alpine",
+               "nomeMonoposto": "A523",
+               "costruttore": "Alpine - Renault",
+               "velocitaMonoposto": 327
+          },
+          {
+               "nome": "Vettel",
+               "scuderia": "Aston Martin",
+               "nomeMonoposto": "AMR23",
+               "costruttore": "Aston Martin - Mercedes",
+               "velocitaMonoposto": 330
+          },
+          {
+               "nome": "Norris",
+               "scuderia": "McLaren",
+               "nomeMonoposto": "MCL60",
+               "costruttore": "McLaren - Mercedes",
+               "velocitaMonoposto": 329
+          },
+          {
+               "nome": "Sainz",
+               "scuderia": "Ferrari",
+               "nomeMonoposto": "SF23",
+               "costruttore": "Ferrari",
+               "velocitaMonoposto": 330
+          }
+     ]
+}

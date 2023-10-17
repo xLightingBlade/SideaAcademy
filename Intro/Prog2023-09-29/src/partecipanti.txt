@@ -1,0 +1,7 @@
+Leclerc,Ferrari,SF23,Ferrari,330
+Verstappen,Red Bull,RB19,Red Bull,340
+Giovinazzi,Alfa Romeo,C43,Alfa Romeo - Ferrari,325
+Alonso,Alpine,A523,Alpine - Renault,327
+Vettel,Aston Martin,AMR23,Aston Martin - Mercedes,330
+Norris,McLaren,MCL60,McLaren - Mercedes,329
+Sainz,Ferrari,SF23,Ferrari,330
