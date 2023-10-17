@@ -1,0 +1,30 @@
+#ProfileContainer {
+    text-align: center;
+    
+}
+
+#ProfileContainer h1 {
+    font-family:'Courier New', Courier, monospace;
+}
+
+#ProfileContainer p {
+    color:chartreuse;
+}
+
+#ProfileContent {
+    text-align: left;
+}
+
+#ProfileContent p {
+    font-family: 'Times New Roman', Times, serif;
+    color: aqua;
+}
+
+ion-content {
+    --ion-background-color : #808080
+}
+
+app-name {
+    font-family: 'Times New Roman', Times, serif;
+    color:aqua
+}
