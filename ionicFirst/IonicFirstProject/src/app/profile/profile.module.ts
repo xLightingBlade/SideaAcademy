@@ -4,7 +4,7 @@ import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import {ProfilePage} from './profile.page';
 import {ProfileName} from './components/name';
-
+import {ActionSheetComponent} from './components/actionSheetExample';
 import {ProfilePageRoutingModule} from './profile-routing.module';
 
 @NgModule({
@@ -14,7 +14,7 @@ import {ProfilePageRoutingModule} from './profile-routing.module';
         FormsModule,
         ProfilePageRoutingModule,
     ],
-    declarations: [ProfilePage, ProfileName]
+    declarations: [ProfilePage, ProfileName, ActionSheetComponent]
 })
 
 export class ProfileModule {}

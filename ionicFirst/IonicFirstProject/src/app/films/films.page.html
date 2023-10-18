@@ -1,0 +1,30 @@
+<ion-header [translucent]="true">
+    <ion-toolbar color = "light">
+      <ion-title>
+        Movie list
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content [fullscreen]="true">
+    <ion-header collapse="condense">
+      <ion-toolbar>
+        <ion-title size="large">Blank</ion-title>
+      </ion-toolbar>
+    </ion-header>
+
+    <!-- Poi qua ci andrà un div dove dentro ci metterò il selettore del componente figlio
+    Il componente figlio avrà una sua ion-list strutturata cosi: -->
+    <!--
+        <ion-list>
+            <ion-item con un ngfor sulla filmlist, che devo passare al componente figlio>
+                <ion-label>qui ci metterò una cosa tipo film.name(film.year)</ion-label>
+    -->
+    
+    <div>
+      <app-film-list [filmList] = "films"></app-film-list>
+    </div>
+
+    <div>
+      <ion-button (click) = "goToProfile()">Go to your profile</ion-button>
+    </div>

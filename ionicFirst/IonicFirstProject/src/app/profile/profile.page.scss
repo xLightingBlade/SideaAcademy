@@ -1,21 +1,21 @@
-#ProfileContainer {
+#profile-container {
     text-align: center;
     
 }
 
-#ProfileContainer h1 {
+#profile-container h1 {
     font-family:'Courier New', Courier, monospace;
 }
 
-#ProfileContainer p {
-    color:chartreuse;
+#profile-container p {
+    color:black;
 }
 
-#ProfileContent {
+#profile-content {
     text-align: left;
 }
 
-#ProfileContent p {
+#profile-content p {
     font-family: 'Times New Roman', Times, serif;
     color: aqua;
 }
@@ -27,4 +27,12 @@ ion-content {
 app-name {
     font-family: 'Times New Roman', Times, serif;
     color:aqua
+}
+
+.admin-text {
+    color: chartreuse
+}
+
+.not-admin-text {
+    color:red
 }

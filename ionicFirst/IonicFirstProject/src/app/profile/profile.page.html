@@ -13,15 +13,45 @@
       </ion-toolbar>
     </ion-header>
 
-    <div id="ProfileContainer">
+    <div id="profile-container">
         <h1>Your profile page</h1>
-        <p>Idk, some text here, have fun</p>
-      </div>
+        <p><strong>Much design, very kekw</strong></p>
+    </div>
       
-    <div id = "ProfileContent">
-      <app-name [myName] = "'ciao'"></app-name>
+    <div id = "profile-content">
+      <!--myName è il valore che qui trasmetto dal padre al figlio-->
+      <!--valueToEmit è il valore che invece emetto dal figlio e qui lo catturo nel padre.-->
+      <!--L'emissione del valore dal figlio è un evento che viene catturato da questa funzione, che poi logga il valore trasmesso-->
+      <app-name [myName] = "'ciao'" (valueToEmit) = "getValueFromChild($event)"></app-name>
       <p>Surname : ooooooh</p>
       <p>Age : assai</p>
     </div>
+
+    <!--Direttiva strutturale ngIf per mostrare un testo se si verifica una certa condizione -->
+    <!--Direttiva di attributo ngClass per "attivare" la classe css specificata(admin-text) se si verifica la condizione(isAdmin)-->
+    <div [ngClass] = "isAdmin ? 'admin-text' : ''" *ngIf = "isAdmin">
+      <p>Sono Admin</p>
+    </div>
+
+    <div [ngClass] = "!isAdmin ? 'not-admin-text' : ''" *ngIf = "!isAdmin">
+      <p>Non sono Admin</p>
+    </div>
+
+    <!--direttiva ngFor per ciclare su un array e mostrarne i suoi elementi-->
+    <div id = "FirstItemList">
+      <p>List of names:</p>
+      <ul>
+        <li *ngFor = "let item of itemList">{{item.name}}</li>
+      </ul>
+    </div>
+    <!--
+    <div>
+      <app-action-sheet-example></app-action-sheet-example>
+    </div>
+    -->
+    <div>
+      <ion-button (click) = "goToFilms()" >Go to movies</ion-button>
+    </div>
+
   </ion-content>
   
