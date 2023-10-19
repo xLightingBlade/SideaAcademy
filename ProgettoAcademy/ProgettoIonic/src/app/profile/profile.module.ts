@@ -3,8 +3,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ProfilePage } from './profile.page';
-import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
-
+import { ProfileContentPage } from './components/profile-page-content';
 import { ProfilePageRoutingModule } from './profile-routing.module';
 
 @NgModule({
@@ -12,9 +11,8 @@ import { ProfilePageRoutingModule } from './profile-routing.module';
     IonicModule,
     CommonModule,
     FormsModule,
-    ExploreContainerComponentModule,
     ProfilePageRoutingModule
   ],
-  declarations: [ProfilePage]
+  declarations: [ProfilePage, ProfileContentPage]
 })
 export class ProfilePageModule {}

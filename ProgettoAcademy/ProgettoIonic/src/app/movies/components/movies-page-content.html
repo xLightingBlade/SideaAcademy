@@ -1,0 +1,23 @@
+<ion-content>
+    <ion-list id = "movie-list">
+        <ion-list-header>
+            <ion-label>Movie list</ion-label>
+        </ion-list-header>
+        <ion-item-sliding *ngFor="let movie of movieList">
+            <ion-item-options side = "end">
+                <ion-item-option (click)="clicked('edit')">
+                    <ion-icon slot = "top" name="create"></ion-icon>
+                    Edit
+                </ion-item-option>
+                <ion-item-option color = "danger" (click)="clicked('delete')">
+                    <ion-icon slot = "top" name="trash"></ion-icon>
+                    Delete
+                </ion-item-option>
+            </ion-item-options>
+
+            <ion-item button (click)="emitMovieId(movie.id)">
+                <ion-label>{{movie.title}}</ion-label>
+            </ion-item>
+        </ion-item-sliding>
+    </ion-list>
+</ion-content>

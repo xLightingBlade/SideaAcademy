@@ -1,0 +1,30 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Movie Detail</ion-title>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/tabs/movies"></ion-back-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <ion-list id = "movieList">
+        <ion-item>
+            <ion-label>Movie Title</ion-label>
+            <ion-label>{{selectedMovie.title}}</ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>Movie year</ion-label>
+            <ion-label>{{selectedMovie.year}}</ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>Movie genres</ion-label>
+            <ion-label>{{selectedMovie.genres}}</ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>Movie duration</ion-label>
+            <ion-label>{{selectedMovie.runtimeMinutes}}</ion-label>
+        </ion-item>
+    </ion-list>
+</ion-content>
+
+

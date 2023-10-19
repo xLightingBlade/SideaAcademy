@@ -12,6 +12,5 @@
       <ion-title size="large">Movies</ion-title>
     </ion-toolbar>
   </ion-header>
-
-  <app-explore-container name="Movies page"></app-explore-container>
+  <movies-content [movieList] = "this.movieList" (clickedMovieId)="catchMovieId($event)"></movies-content>
 </ion-content>
