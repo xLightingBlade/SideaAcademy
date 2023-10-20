@@ -13,5 +13,5 @@
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Celebrities page"></app-explore-container>
+  <celebrities-content [celebrityList] = this.celebrityList (clickedCelebrity)="selectActionForCelebrity($event)"></celebrities-content>
 </ion-content>

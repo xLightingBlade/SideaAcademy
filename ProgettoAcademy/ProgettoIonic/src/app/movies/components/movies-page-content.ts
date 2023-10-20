@@ -20,14 +20,14 @@ export class MoviesPageContent{
     }
     
     emitMovieIdForDetail(id:string){
-        this.clickedMovie.emit({movieId : id, actionSelected : "detail"});
+        this.clickedMovie.emit({id : id, actionSelected : "detail"});
     }
 
     emitMovieIdForEdit(id:string){
-        this.clickedMovie.emit({movieId : id, actionSelected : "edit"});
+        this.clickedMovie.emit({id : id, actionSelected : "edit"});
     }
 
     emitMovieIdForDelete(id:string){
-        this.clickedMovie.emit({movieId : id, actionSelected : "delete"});
+        this.clickedMovie.emit({id : id, actionSelected : "delete"});
     }
 }

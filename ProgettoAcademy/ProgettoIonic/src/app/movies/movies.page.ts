@@ -27,7 +27,7 @@ export class MoviesPage {
   
 
   public selectActionForMovie(emittedObject:EmittedObject){
-    this.selectedMovieId = emittedObject.movieId;
+    this.selectedMovieId = emittedObject.id;
     console.log("caught movie id : "+this.selectedMovieId);
     if(emittedObject.actionSelected == "detail") {
       this.goToMovieDetail(this.selectedMovieId);

@@ -1,0 +1,30 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Editing celebrity: {{selectedCelebrity.primaryName}}</ion-title>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/tabs/celebrities"></ion-back-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+    <ion-header collapse="condense">
+      <ion-toolbar>
+        <ion-title size="large">Celebrities</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <form *ngIf="celebrityEditForm" [formGroup]="celebrityEditForm" (ngSubmit)="submitForm()">
+        <ion-list>
+            <ion-item>
+                <ion-input label="Name" placeholder="primaryName.value" formControlName="primaryName" type="text"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-input label="Birth year" placeholder="birthYear.value" formControlName="birthYear" type="text"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-input label="Death year" placeholder="deathYear.value" formControlName="deathYear" type="text"></ion-input>
+            </ion-item>
+        </ion-list>
+        <ion-button type="submit" color="tertiary" fill="outline" [disabled]="!celebrityEditForm.valid">Confirm edit</ion-button>
+    </form>
+  </ion-content>

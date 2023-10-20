@@ -1,4 +1,4 @@
 export interface EmittedObject{
-    movieId : string,
+    id : string,
     actionSelected : string
 }

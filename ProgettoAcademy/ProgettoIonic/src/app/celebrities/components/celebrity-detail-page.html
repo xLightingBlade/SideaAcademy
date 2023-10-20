@@ -1,0 +1,24 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Celebrity Detail</ion-title>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/tabs/celebrities"></ion-back-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <ion-list id = "celebrity-detail" *ngIf="selectedCelebrity">
+        <ion-item>
+            <ion-label>Celebrity Name</ion-label>
+            <ion-label>{{selectedCelebrity.primaryName}}</ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>Celebrity birth year</ion-label>
+            <ion-label>{{selectedCelebrity.birthYear}}</ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>Celebrity death year</ion-label>
+            <ion-label>{{selectedCelebrity.deathYear}}</ion-label>
+        </ion-item>
+    </ion-list>
+</ion-content>
