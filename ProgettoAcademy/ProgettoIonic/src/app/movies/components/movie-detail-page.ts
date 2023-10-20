@@ -12,7 +12,7 @@ export class MovieDetail{
     //capire la gestione dei null
     movieId:string | null= "";
 
-    selectedMovie!: MovieInterface;
+    selectedMovie: MovieInterface | undefined;
     constructor(
         private _route:ActivatedRoute,
         private _movieService:MovieService){
@@ -20,8 +20,9 @@ export class MovieDetail{
         this._route.paramMap.subscribe( paramMap => {
             this.movieId = paramMap.get('id');
             console.log("Caught route id : " + this.movieId);
+
             if(this.movieId){
-                this.selectedMovie = _movieService.getSingleMovie(this.movieId)!;
+                this.selectedMovie = _movieService.getSingleMovie(this.movieId);
             }
         })
     }
