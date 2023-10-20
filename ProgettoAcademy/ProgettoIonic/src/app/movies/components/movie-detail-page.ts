@@ -9,10 +9,11 @@ import { MovieService } from "../services/movie-service";
     styleUrls:['movie-detail-page.scss']
 })
 export class MovieDetail{
-    //capire la gestione dei null
+
     movieId:string | null= "";
 
     selectedMovie: MovieInterface | undefined;
+    
     constructor(
         private _route:ActivatedRoute,
         private _movieService:MovieService){
