@@ -5,6 +5,7 @@ import { MovieInterface } from "../interfaces/movie-interface";
     providedIn:'root'
 })
 export class MovieService{
+    //Chiaramente adesso ad ogni refresh della pagina la movieList si resetta a questa:
     movieList:MovieInterface[] = [
         {
             id:"1",
@@ -44,6 +45,13 @@ export class MovieService{
                 year:NaN,
                 runtimeMinutes:NaN
             }
+        }
+    }
+
+    updateMovie(movie:MovieInterface){
+        const movieToUpdateIdx:number = this.movieList.findIndex((item:MovieInterface) => item.id == movie.id)
+        if(movieToUpdateIdx != 1) {
+            this.movieList[movieToUpdateIdx] = movie;
         }
     }
 

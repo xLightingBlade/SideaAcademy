@@ -10,6 +10,7 @@ import { EmittedObject } from "../interfaces/emitted-object-interface";
 export class MoviesPageContent{
     @Input() movieList:MovieInterface[] = [];
 
+    //valutare di fare tre eventemitter diversi
     @Output() clickedMovie = new EventEmitter<EmittedObject>;
 
     constructor(){}

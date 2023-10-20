@@ -21,6 +21,11 @@ export class MoviesPage {
     this.movieList = _movieService.getMovieList();
   }
 
+  ionViewWillEnter(){
+    this.movieList=this._movieService.getMovieList();
+  }
+  
+
   public selectActionForMovie(emittedObject:EmittedObject){
     this.selectedMovieId = emittedObject.movieId;
     console.log("caught movie id : "+this.selectedMovieId);
