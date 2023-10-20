@@ -1,15 +1,15 @@
 import { Component } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
 import { MovieInterface } from "../interfaces/movie-interface";
+import { ActivatedRoute } from "@angular/router";
 import { MovieService } from "../services/movie-service";
 
 @Component({
-    selector:'movie-detail',
-    templateUrl:'movie-detail-page.html',
-    styleUrls:['movie-detail-page.scss']
+    selector:'movie-delete',
+    templateUrl:'movie-delete-page.html',
+    styleUrls:['movie-delete-page.scss']
 })
-export class MovieDetail{
-
+export class MovieDeletePage{
+    
     movieId:string | null= "";
 
     selectedMovie!: MovieInterface;

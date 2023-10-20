@@ -32,8 +32,19 @@ export class MovieService{
         return this.movieList;
     }
 
-    getSingleMovie(selectedId:string|null):MovieInterface | undefined {
-        return this.movieList.find(movie => movie.id == selectedId);
+    getSingleMovie(selectedId:string|null):MovieInterface{
+        const movie:MovieInterface | undefined = this.movieList.find(movie => movie.id == selectedId);
+        if(movie) {
+            return movie;
+        }else {
+            return {
+                id:"Not Found",
+                title:"Unavailable",
+                genres:"Unavailable",
+                year:NaN,
+                runtimeMinutes:NaN
+            }
+        }
     }
 
 }

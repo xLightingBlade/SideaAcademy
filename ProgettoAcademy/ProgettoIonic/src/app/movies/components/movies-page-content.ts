@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { MovieInterface } from "../interfaces/movie-interface";
+import { EmittedObject } from "../interfaces/emitted-object-interface";
 
 @Component({
     selector:'movies-content',
@@ -9,7 +10,7 @@ import { MovieInterface } from "../interfaces/movie-interface";
 export class MoviesPageContent{
     @Input() movieList:MovieInterface[] = [];
 
-    @Output() clickedMovieId = new EventEmitter<string>;
+    @Output() clickedMovie = new EventEmitter<EmittedObject>;
 
     constructor(){}
     
@@ -17,8 +18,15 @@ export class MoviesPageContent{
         console.log(name + "clicked");
     }
     
-    emitMovieId(id:string){
-        this.clickedMovieId.emit(id);
-        console.log("value emitted: "+id);
+    emitMovieIdForDetail(id:string){
+        this.clickedMovie.emit({movieId : id, actionSelected : "detail"});
+    }
+
+    emitMovieIdForEdit(id:string){
+        this.clickedMovie.emit({movieId : id, actionSelected : "edit"});
+    }
+
+    emitMovieIdForDelete(id:string){
+        this.clickedMovie.emit({movieId : id, actionSelected : "delete"});
     }
 }
