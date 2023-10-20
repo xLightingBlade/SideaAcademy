@@ -42,7 +42,7 @@ export class MovieEditPage{
     }
 
     submitForm() {
-        console.log(this.selectedMovie);
+        console.log(this.movieEditForm.value);
         this._location.back();
     }
 }
