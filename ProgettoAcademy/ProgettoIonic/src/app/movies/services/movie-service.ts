@@ -27,6 +27,13 @@ export class MovieService{
             genres:"Comedy",
             year:2023,
             runtimeMinutes:120
+        },
+        {
+            id:"4",
+            title:"movieFour",
+            genres:"Aiuto",
+            year:1990,
+            runtimeMinutes:90
         }
     ]
     getMovieList():MovieInterface[]{
