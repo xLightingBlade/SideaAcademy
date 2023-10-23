@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { CelebrityInterface } from "../interfaces/celebrity-interface";
 import { EmittedObject } from "src/app/movies/interfaces/emitted-object-interface"; //tanto poi si deve cambiare
+import { CommonList } from "src/app/shared/interfaces/common-list";
 
 @Component({
     selector:'celebrities-content',
@@ -8,7 +9,7 @@ import { EmittedObject } from "src/app/movies/interfaces/emitted-object-interfac
     styleUrls:['celebrities-page-content.scss']
 })
 export class CelebritiesPageContent{
-    @Input() celebrityList:CelebrityInterface[] = [];
+    @Input() celebrityList:CommonList[] = [];
 
     //valutare di fare tre eventemitter diversi
     @Output() clickedCelebrity = new EventEmitter<EmittedObject>;

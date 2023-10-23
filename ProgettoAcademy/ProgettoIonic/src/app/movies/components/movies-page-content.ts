@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { MovieInterface } from "../interfaces/movie-interface";
 import { EmittedObject } from "../interfaces/emitted-object-interface";
+import { CommonList } from "src/app/shared/interfaces/common-list";
 
 @Component({
     selector:'movies-content',
@@ -8,7 +9,7 @@ import { EmittedObject } from "../interfaces/emitted-object-interface";
     styleUrls:['movies-page-content.scss']
 })
 export class MoviesPageContent{
-    @Input() movieList:MovieInterface[] = [];
+    @Input() movieList:CommonList[] = [];
 
     //valutare di fare tre eventemitter diversi
     @Output() clickedMovie = new EventEmitter<EmittedObject>;

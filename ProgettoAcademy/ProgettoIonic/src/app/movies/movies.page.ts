@@ -3,6 +3,7 @@ import { MovieInterface } from './interfaces/movie-interface';
 import { MovieService } from './services/movie-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EmittedObject } from './interfaces/emitted-object-interface';
+import { CommonList } from '../shared/interfaces/common-list';
 
 @Component({
   selector: 'app-movies',
@@ -10,7 +11,7 @@ import { EmittedObject } from './interfaces/emitted-object-interface';
   styleUrls: ['movies.page.scss']
 })
 export class MoviesPage {
-  @Output() movieList:MovieInterface[] = [];
+  @Output() movieList:CommonList[] = [];
 
   selectedMovieId:string="";
   
@@ -18,11 +19,20 @@ export class MoviesPage {
     private _movieService:MovieService,
     private _movieRouter:Router,
     private _activateRoute:ActivatedRoute) {
-    this.movieList = _movieService.getMovieList();
+    this.movieList = this.getMovies();
   }
 
   ionViewWillEnter(){
-    this.movieList=this._movieService.getMovieList();
+    this.movieList=this.getMovies();
+  }
+
+  getMovies(): CommonList[] {
+    return this._movieService.getMovieList().map((movie:MovieInterface) => {
+      return {
+        id:movie.id,
+        name:movie.title
+      }
+    })
   }
   
 

@@ -3,6 +3,7 @@ import { CelebrityService } from './services/celebrity-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CelebrityInterface } from './interfaces/celebrity-interface';
 import { EmittedObject } from '../movies/interfaces/emitted-object-interface';
+import { CommonList } from '../shared/interfaces/common-list';
 
 @Component({
   selector: 'app-celebrities',
@@ -10,18 +11,26 @@ import { EmittedObject } from '../movies/interfaces/emitted-object-interface';
   styleUrls: ['celebrities.page.scss']
 })
 export class CelebritiesPage {
-  @Output() celebrityList:CelebrityInterface[] = [];
+  @Output() celebrityList:CommonList[] = [];
   selectedCelebrityId:string="";
 
   constructor(
     private _celebritiesService:CelebrityService,
     private _activateRoute:ActivatedRoute,
     private _celebritiesRouter:Router) {
-      this.celebrityList = _celebritiesService.getCelebrityList();
+      this.celebrityList = this.getCelebrities();
+  }
+  getCelebrities(): CommonList[] {
+    return this._celebritiesService.getCelebrityList().map((celebrity:CelebrityInterface) => {
+      return {
+        id:celebrity.id,
+        name:celebrity.primaryName
+      }
+    })
   }
 
   ionViewWillEnter(){
-    this.celebrityList=this._celebritiesService.getCelebrityList();
+    this.celebrityList=this.getCelebrities();
   }
   
   public selectActionForCelebrity(emittedObject:EmittedObject){
