@@ -44,7 +44,6 @@ export class MovieEditPage{
     }
 
     submitForm() {
-        //Chiaramente per adesso al refresh della pagina si resetta la lista di film, perchè le modifiche non vengono salvate seriamente
         console.log("Updated movie: ",this.movieEditForm.value);
         this._movieService.updateMovie(this.movieEditForm.value);
         this._location.back();

@@ -4,11 +4,12 @@ import { MoviesPage } from './movies.page';
 import { MovieDetail } from './components/movie-detail-page';
 import { MovieEditPage } from './components/movie-edit-page';
 import { MovieDeletePage } from './components/movie-delete-page';
+import { MovieCreatePage } from './components/movie-create-page'
 
 const routes: Routes = [
   {
     path: '',
-    component : MoviesPage
+    component : MoviesPage,
   },
   {
     path:'detail/:id',
@@ -21,6 +22,10 @@ const routes: Routes = [
   {
     path:'delete/:id',
     component:MovieDeletePage,
+  },
+  {
+    path:'create',
+    component:MovieCreatePage,
   }
 ];
 

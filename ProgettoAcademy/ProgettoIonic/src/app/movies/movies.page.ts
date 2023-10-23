@@ -43,33 +43,40 @@ export class MoviesPage {
     console.log("caught movie id : "+this.selectedMovieId);
     switch(emittedObject.actionSelected) {
       case 'detail' : {
-        this.goToMovieDetail(this.selectedMovieId);
+        this._goToMovieDetail(this.selectedMovieId);
         break;
       }
       case 'edit' : {
-        this.goToMovieEdit(this.selectedMovieId);
+        this._goToMovieEdit(this.selectedMovieId);
         break;
       }
       case 'delete' : {
-        this.goToMovieDelete(this.selectedMovieId);
+        this._goToMovieDelete(this.selectedMovieId);
         break;
+      }
+      case 'create' : {
+        this._goToMovieCreate();
       }
     }
   }
 
-  private goToMovieDetail(id:string) {
+  private _goToMovieDetail(id:string) {
     console.log("redirecting to movie detail");
     this._movieRouter.navigate(['detail',id], {relativeTo:this._activateRoute});
   }
 
-  private goToMovieEdit(id:string) {
+  private _goToMovieEdit(id:string) {
     console.log("redirecting to movie editing");
     this._movieRouter.navigate(['edit',id], {relativeTo:this._activateRoute});
   }
 
-  private goToMovieDelete(id:string) {
+  private _goToMovieDelete(id:string) {
     console.log("redirecting to movie deleting");
     this._movieRouter.navigate(['delete',id], {relativeTo:this._activateRoute});
   }
 
+  private _goToMovieCreate() {
+    console.log("Redirecting to movie creation");
+    this._movieRouter.navigate(['create'], {relativeTo:this._activateRoute});
+  }
 }

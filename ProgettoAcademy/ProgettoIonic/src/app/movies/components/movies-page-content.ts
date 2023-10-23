@@ -31,4 +31,8 @@ export class MoviesPageContent{
     emitMovieIdForDelete(id:string){
         this.clickedMovie.emit({id : id, actionSelected : "delete"});
     }
+
+    emitEventForCreation() {
+        this.clickedMovie.emit({id:"", actionSelected : "create"});
+    }
 }

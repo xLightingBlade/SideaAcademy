@@ -65,6 +65,16 @@ export class MovieService{
         }
     }
 
+    createMovie(movie:MovieInterface) {
+        movie.id = (this._movieList.length + 1).toString();
+        const movieToCreateIdx:number = this._movieList.findIndex((item:MovieInterface) => item.id == movie.id)
+        if(movieToCreateIdx == 1){
+            return;
+        }
+        this._movieList.push(movie);
+        this._movieListSubject$.next(this._movieList);
+    }
+
     updateMovie(movie:MovieInterface){
         console.log(movie.id);
         const movieToUpdateIdx:number = this._movieList.findIndex((item:MovieInterface) => item.id == movie.id)

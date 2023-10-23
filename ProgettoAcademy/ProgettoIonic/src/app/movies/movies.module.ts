@@ -10,6 +10,7 @@ import { MovieDetail } from './components/movie-detail-page';
 import { MoviesPageRoutingModule } from './movies-routing.module';
 import { MovieEditPage } from './components/movie-edit-page';
 import { MovieDeletePage } from './components/movie-delete-page';
+import { MovieCreatePage } from './components/movie-create-page';
 
 @NgModule({
   imports: [
@@ -19,6 +20,6 @@ import { MovieDeletePage } from './components/movie-delete-page';
     ReactiveFormsModule,
     MoviesPageRoutingModule
   ],
-  declarations: [MoviesPage, MoviesPageContent, MovieDetail, MovieEditPage, MovieDeletePage]
+  declarations: [MoviesPage, MoviesPageContent, MovieDetail, MovieEditPage, MovieDeletePage, MovieCreatePage]
 })
 export class MoviesPageModule {}
