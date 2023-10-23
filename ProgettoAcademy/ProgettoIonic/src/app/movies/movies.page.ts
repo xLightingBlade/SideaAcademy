@@ -38,6 +38,7 @@ export class MoviesPage {
   }
   
 
+  //Raccogliere i vari metodi qui sotto
   public selectActionForMovie(emittedObject:EmittedObject){
     this.selectedMovieId = emittedObject.id;
     console.log("caught movie id : "+this.selectedMovieId);

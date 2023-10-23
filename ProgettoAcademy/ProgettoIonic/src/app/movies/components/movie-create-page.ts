@@ -18,8 +18,10 @@ export class MovieCreatePage{
 
     private _setForm() {
         this.movieCreateForm = new FormGroup({
-            title: new FormControl("", [Validators.required, Validators.pattern('[a-zA-Z ]*')]),
+            //Sistemare i pattern
+            title: new FormControl("", [Validators.required, Validators.pattern('[a-zA-Z0-9 ]*')]),
             genres: new FormControl("", Validators.pattern('[a-zA-Z ]*')),
+            //Non serve il pattern, cambiare type nell'html
             year: new FormControl("", Validators.pattern('[0-9]*')),
             runtimeMinutes: new FormControl("", Validators.pattern('[0-9]*')),
         })

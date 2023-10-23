@@ -38,6 +38,8 @@ export class MovieService{
         }
     ]
 
+    private _initialLength = this._movieList.length;
+
     //Adesso ho reso privato il mio subject, altrimenti avrei potuto fare next() da ovunque. Ma adesso come vi accedo da fuori?
     private _movieListSubject$ = new Subject<MovieInterface[]>();
     //Creo un osservabile il cui unico scopo è di sola lettura, su di lui non posso farci i next(), che devono essere fatti al subject.
@@ -55,6 +57,7 @@ export class MovieService{
         if(movie) {
             return movie;
         }else {
+            //Meglio mostrare un ion-toast e tornare indietro piuttosto che ritornare questo
             return {
                 id:"Not Found",
                 title:"Unavailable",
@@ -66,11 +69,12 @@ export class MovieService{
     }
 
     createMovie(movie:MovieInterface) {
-        movie.id = (this._movieList.length + 1).toString();
+        this._initialLength+=1;
+        movie.id = (this._initialLength).toString();
         const movieToCreateIdx:number = this._movieList.findIndex((item:MovieInterface) => item.id == movie.id)
-        if(movieToCreateIdx == 1){
+        /*if(movieToCreateIdx == 1){
             return;
-        }
+        }*/
         this._movieList.push(movie);
         this._movieListSubject$.next(this._movieList);
     }
@@ -85,12 +89,16 @@ export class MovieService{
     }
 
     deleteMovie(movieId:string){
+        //si dovrebbe filtrare sul subject
+
         console.log(movieId);
+        
         const movieToDeleteIdx:number = this._movieList.findIndex((item:MovieInterface) => item.id == movieId)
         if(movieToDeleteIdx != -1) {
             this._movieList.splice(movieToDeleteIdx, 1);
         }
         this._movieListSubject$.next(this._movieList);
+        
     }
 
 }
