@@ -1,12 +1,14 @@
 import { Injectable } from "@angular/core";
 import { MovieInterface } from "../interfaces/movie-interface";
+import { BehaviorSubject, Subject } from "rxjs";
 
 @Injectable({
     providedIn:'root'
 })
 export class MovieService{
-    //Chiaramente adesso ad ogni refresh della pagina la movieList si resetta a questa:
-    movieList:MovieInterface[] = [
+
+    movieListSubject = new Subject<MovieInterface[]>();
+    private _movieList:MovieInterface[] = [
         {
             id:"1",
             title:"movieOne",
@@ -36,12 +38,17 @@ export class MovieService{
             runtimeMinutes:90
         }
     ]
-    getMovieList():MovieInterface[]{
-        return this.movieList;
+    constructor(){
+        this.movieListSubject = new Subject<MovieInterface[]>;
+    }
+    
+
+    getMovieList(){
+        this.movieListSubject.next(this._movieList);
     }
 
     getSingleMovie(selectedId:string|null):MovieInterface{
-        const movie:MovieInterface | undefined = this.movieList.find(movie => movie.id == selectedId);
+        const movie:MovieInterface | undefined = this._movieList.find(movie => movie.id == selectedId);
         if(movie) {
             return movie;
         }else {
@@ -56,10 +63,12 @@ export class MovieService{
     }
 
     updateMovie(movie:MovieInterface){
-        const movieToUpdateIdx:number = this.movieList.findIndex((item:MovieInterface) => item.id == movie.id)
-        if(movieToUpdateIdx != 1) {
-            this.movieList[movieToUpdateIdx] = movie;
+        console.log(movie.id);
+        const movieToUpdateIdx:number = this._movieList.findIndex((item:MovieInterface) => item.id == movie.id)
+        if(movieToUpdateIdx != -1) {
+            this._movieList[movieToUpdateIdx] = movie;
         }
+        this.movieListSubject.next(this._movieList);
     }
 
 }

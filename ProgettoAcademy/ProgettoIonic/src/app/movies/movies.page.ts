@@ -4,6 +4,7 @@ import { MovieService } from './services/movie-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EmittedObject } from './interfaces/emitted-object-interface';
 import { CommonList } from '../shared/interfaces/common-list';
+import { Observable, Subject, Subscriber, from } from 'rxjs';
 
 @Component({
   selector: 'app-movies',
@@ -19,20 +20,21 @@ export class MoviesPage {
     private _movieService:MovieService,
     private _movieRouter:Router,
     private _activateRoute:ActivatedRoute) {
-    this.movieList = this.getMovies();
+      
+      this._movieService.movieListSubject.subscribe((films : MovieInterface[]) => {
+        this.movieList = films.map((movie:MovieInterface) => {
+          return {
+            id:movie.id,
+            name:movie.title
+          }
+        })
+      });
+      this.getMovies();
   }
 
-  ionViewWillEnter(){
-    this.movieList=this.getMovies();
-  }
 
-  getMovies(): CommonList[] {
-    return this._movieService.getMovieList().map((movie:MovieInterface) => {
-      return {
-        id:movie.id,
-        name:movie.title
-      }
-    })
+  getMovies(){
+    this._movieService.getMovieList();
   }
   
 

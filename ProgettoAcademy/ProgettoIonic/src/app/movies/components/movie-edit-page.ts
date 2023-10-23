@@ -28,6 +28,7 @@ export class MovieEditPage{
             
             this.selectedMovie = _movieService.getSingleMovie(this.movieId);
             this._setForm();
+            
         })
     }
 
@@ -39,6 +40,7 @@ export class MovieEditPage{
             year: new FormControl(this.selectedMovie.year),
             runtimeMinutes: new FormControl(this.selectedMovie.runtimeMinutes),
         })
+        this.movieEditForm.valueChanges.subscribe((form:FormGroup) => console.log(form));
     }
 
     submitForm() {

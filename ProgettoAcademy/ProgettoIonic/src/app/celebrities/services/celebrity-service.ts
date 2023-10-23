@@ -47,7 +47,7 @@ export class CelebrityService{
 
     updatecelebrity(celebrity:CelebrityInterface){
         const celebrityToUpdateIdx:number = this.celebrityList.findIndex((item:CelebrityInterface) => item.id == celebrity.id)
-        if(celebrityToUpdateIdx != 1) {
+        if(celebrityToUpdateIdx != -1) {
             this.celebrityList[celebrityToUpdateIdx] = celebrity;
         }
     }
