@@ -18,21 +18,22 @@ export class CelebritiesPage {
     private _celebritiesService:CelebrityService,
     private _activateRoute:ActivatedRoute,
     private _celebritiesRouter:Router) {
-      this.celebrityList = this.getCelebrities();
-  }
-  getCelebrities(): CommonList[] {
-    return this._celebritiesService.getCelebrityList().map((celebrity:CelebrityInterface) => {
-      return {
-        id:celebrity.id,
-        name:celebrity.primaryName
-      }
-    })
-  }
 
-  ionViewWillEnter(){
-    this.celebrityList=this.getCelebrities();
+      this._celebritiesService.$celebrityObservable$.subscribe((celebrities:CelebrityInterface[]) => {
+        this.celebrityList = celebrities.map((celebrity:CelebrityInterface) => {
+          return {
+            id:celebrity.id,
+            name:celebrity.primaryName
+          }
+        })
+      });
+      this.getCelebrities();
   }
   
+  getCelebrities(){
+    this._celebritiesService.getCelebrityList();
+  }
+
   public selectActionForCelebrity(emittedObject:EmittedObject){
     this.selectedCelebrityId = emittedObject.id;
     console.log("caught Celebrity id : "+this.selectedCelebrityId);

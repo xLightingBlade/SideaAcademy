@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 import { CelebrityInterface } from "../interfaces/celebrity-interface";
 import { ActivatedRoute } from "@angular/router";
 import { CelebrityService } from "../services/celebrity-service";
+import { Location } from "@angular/common";
 
 @Component({
     selector:'celebrity-delete',
@@ -16,7 +17,8 @@ export class CelebrityDeletePage{
 
     constructor(
         private _route:ActivatedRoute,
-        private _celebrityService:CelebrityService){
+        private _celebrityService:CelebrityService,
+        private _location:Location){
 
         this._route.paramMap.subscribe( paramMap => {
             this.celebrityId = paramMap.get('id');
@@ -24,5 +26,11 @@ export class CelebrityDeletePage{
             
             this.selectedCelebrity = _celebrityService.getSingleCelebrity(this.celebrityId);
         })
+    }
+
+    
+    deleteCelebrity(celebrityId:string) {
+        this._celebrityService.deleteCelebrity(celebrityId);
+        this._location.back();
     }
 }

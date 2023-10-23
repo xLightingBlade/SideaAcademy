@@ -1,11 +1,12 @@
 import { Injectable } from "@angular/core";
 import { CelebrityInterface } from "../interfaces/celebrity-interface";
+import { Subject } from "rxjs";
 
 @Injectable({
     providedIn:'root',
 })
 export class CelebrityService{
-    celebrityList:CelebrityInterface[] = [
+    private _celebrityList:CelebrityInterface[] = [
         {
             id:"1",
             primaryName:"celebrityFirst",
@@ -26,13 +27,16 @@ export class CelebrityService{
         }
     ]
 
-    getCelebrityList():CelebrityInterface[] {
-        return this.celebrityList;
+    private _celebritySubject$ = new Subject<CelebrityInterface[]>();
+    $celebrityObservable$ = this._celebritySubject$.asObservable();
+
+    getCelebrityList(){
+        this._celebritySubject$.next(this._celebrityList);
     }
 
     
     getSingleCelebrity(selectedId:string|null):CelebrityInterface{
-        const celebrity:CelebrityInterface | undefined = this.celebrityList.find(celebrity => celebrity.id == selectedId);
+        const celebrity:CelebrityInterface | undefined = this._celebrityList.find(celebrity => celebrity.id == selectedId);
         if(celebrity) {
             return celebrity;
         }else {
@@ -46,10 +50,20 @@ export class CelebrityService{
     }
 
     updatecelebrity(celebrity:CelebrityInterface){
-        const celebrityToUpdateIdx:number = this.celebrityList.findIndex((item:CelebrityInterface) => item.id == celebrity.id)
+        const celebrityToUpdateIdx:number = this._celebrityList.findIndex((item:CelebrityInterface) => item.id == celebrity.id)
         if(celebrityToUpdateIdx != -1) {
-            this.celebrityList[celebrityToUpdateIdx] = celebrity;
+            this._celebrityList[celebrityToUpdateIdx] = celebrity;
         }
+        this._celebritySubject$.next(this._celebrityList);
+    }
+
+    deleteCelebrity(celebrityId:string){
+        console.log(celebrityId);
+        const movieToDeleteIdx:number = this._celebrityList.findIndex((item:CelebrityInterface) => item.id == celebrityId)
+        if(movieToDeleteIdx != -1) {
+            this._celebrityList.splice(movieToDeleteIdx, 1);
+        }
+        this._celebritySubject$.next(this._celebrityList);
     }
 
 }
