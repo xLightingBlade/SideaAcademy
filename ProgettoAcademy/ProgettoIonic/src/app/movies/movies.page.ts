@@ -39,28 +39,35 @@ export class MoviesPage {
   public selectActionForMovie(emittedObject:EmittedObject){
     this.selectedMovieId = emittedObject.id;
     console.log("caught movie id : "+this.selectedMovieId);
-    if(emittedObject.actionSelected == "detail") {
-      this.goToMovieDetail(this.selectedMovieId);
-    } else if(emittedObject.actionSelected == "edit") {
-      this.goToMovieEdit(this.selectedMovieId);
-    } else if(emittedObject.actionSelected == "delete") {
-      this.goToMovieDelete(this.selectedMovieId);
+    switch(emittedObject.actionSelected) {
+      case 'detail' : {
+        this.goToMovieDetail(this.selectedMovieId);
+        break;
+      }
+      case 'edit' : {
+        this.goToMovieEdit(this.selectedMovieId);
+        break;
+      }
+      case 'delete' : {
+        this.goToMovieDelete(this.selectedMovieId);
+        break;
+      }
     }
   }
 
   private goToMovieDetail(id:string) {
     console.log("redirecting to movie detail");
-    this._movieRouter.navigate(['detail',this.selectedMovieId], {relativeTo:this._activateRoute});
+    this._movieRouter.navigate(['detail',id], {relativeTo:this._activateRoute});
   }
 
   private goToMovieEdit(id:string) {
     console.log("redirecting to movie editing");
-    this._movieRouter.navigate(['edit',this.selectedMovieId], {relativeTo:this._activateRoute});
+    this._movieRouter.navigate(['edit',id], {relativeTo:this._activateRoute});
   }
 
   private goToMovieDelete(id:string) {
     console.log("redirecting to movie deleting");
-    this._movieRouter.navigate(['delete',this.selectedMovieId], {relativeTo:this._activateRoute});
+    this._movieRouter.navigate(['delete',id], {relativeTo:this._activateRoute});
   }
 
 }
