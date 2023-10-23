@@ -7,7 +7,6 @@ import { BehaviorSubject, Subject } from "rxjs";
 })
 export class MovieService{
 
-    movieListSubject = new Subject<MovieInterface[]>();
     private _movieList:MovieInterface[] = [
         {
             id:"1",
@@ -38,13 +37,17 @@ export class MovieService{
             runtimeMinutes:90
         }
     ]
-    constructor(){
-        this.movieListSubject = new Subject<MovieInterface[]>;
-    }
+
+    //Adesso ho reso privato il mio subject, altrimenti avrei potuto fare next() da ovunque. Ma adesso come vi accedo da fuori?
+    private _movieListSubject$ = new Subject<MovieInterface[]>();
+    //Creo un osservabile il cui unico scopo è di sola lettura, su di lui non posso farci i next(), che devono essere fatti al subject.
+    $movieObservable$ = this._movieListSubject$.asObservable();
+
+    constructor(){}
     
 
     getMovieList(){
-        this.movieListSubject.next(this._movieList);
+        this._movieListSubject$.next(this._movieList);
     }
 
     getSingleMovie(selectedId:string|null):MovieInterface{
@@ -68,7 +71,7 @@ export class MovieService{
         if(movieToUpdateIdx != -1) {
             this._movieList[movieToUpdateIdx] = movie;
         }
-        this.movieListSubject.next(this._movieList);
+        this._movieListSubject$.next(this._movieList);
     }
 
 }

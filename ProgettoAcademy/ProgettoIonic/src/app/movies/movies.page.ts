@@ -20,8 +20,8 @@ export class MoviesPage {
     private _movieService:MovieService,
     private _movieRouter:Router,
     private _activateRoute:ActivatedRoute) {
-      
-      this._movieService.movieListSubject.subscribe((films : MovieInterface[]) => {
+
+      this._movieService.$movieObservable$.subscribe((films : MovieInterface[]) => {
         this.movieList = films.map((movie:MovieInterface) => {
           return {
             id:movie.id,
