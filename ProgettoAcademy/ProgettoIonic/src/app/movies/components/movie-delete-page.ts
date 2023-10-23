@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 import { MovieInterface } from "../interfaces/movie-interface";
 import { ActivatedRoute } from "@angular/router";
 import { MovieService } from "../services/movie-service";
+import { Location } from "@angular/common";
 
 @Component({
     selector:'movie-delete',
@@ -16,7 +17,8 @@ export class MovieDeletePage{
 
     constructor(
         private _route:ActivatedRoute,
-        private _movieService:MovieService){
+        private _movieService:MovieService,
+        private _location:Location){
 
         this._route.paramMap.subscribe( paramMap => {
             this.movieId = paramMap.get('id');
@@ -24,5 +26,10 @@ export class MovieDeletePage{
             
             this.selectedMovie = _movieService.getSingleMovie(this.movieId);
         })
+    }
+
+    deleteMovie(movieId:string) {
+        this._movieService.deleteMovie(movieId);
+        this._location.back();
     }
 }

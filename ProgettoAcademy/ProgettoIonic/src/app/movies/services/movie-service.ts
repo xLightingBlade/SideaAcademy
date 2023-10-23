@@ -74,4 +74,13 @@ export class MovieService{
         this._movieListSubject$.next(this._movieList);
     }
 
+    deleteMovie(movieId:string){
+        console.log(movieId);
+        const movieToDeleteIdx:number = this._movieList.findIndex((item:MovieInterface) => item.id == movieId)
+        if(movieToDeleteIdx != -1) {
+            this._movieList.splice(movieToDeleteIdx, 1);
+        }
+        this._movieListSubject$.next(this._movieList);
+    }
+
 }
