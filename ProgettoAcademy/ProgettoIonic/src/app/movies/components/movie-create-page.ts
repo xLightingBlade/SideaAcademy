@@ -22,7 +22,7 @@ export class MovieCreatePage{
             title: new FormControl("", Validators.required),
             genres: new FormControl("", Validators.required),
             year: new FormControl(""),
-            runtimeMinutes: new FormControl(""),
+            runningTime: new FormControl(""),
         })
         this.movieCreateForm.valueChanges.subscribe((form:FormGroup) => console.log(form));
     }

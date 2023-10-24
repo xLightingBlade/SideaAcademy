@@ -25,8 +25,12 @@ export class MovieDetail{
             this.movieId = paramMap.get('id');
             console.log("Caught route id : " + this.movieId);
             
-            this.selectedMovie = _movieService.getSingleMovie(this.movieId);
-            this.pageTitle =  this.selectedMovie.title;
+            this._movieService.getSingleMovie(this.movieId).subscribe((result:MovieInterface) => {
+                this.selectedMovie = result;
+                console.log(result);
+                this.pageTitle =  this.selectedMovie.title;
+            });
+            
         })
     }
 

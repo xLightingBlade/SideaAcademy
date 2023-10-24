@@ -3,5 +3,5 @@ export interface MovieInterface{
     title:string,
     genres:string,
     year:number,
-    runtimeMinutes:number
+    runningTime:number
 }

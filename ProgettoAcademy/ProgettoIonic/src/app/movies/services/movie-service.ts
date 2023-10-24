@@ -31,22 +31,8 @@ export class MovieService{
         //this._movieListSubject$.next(this._movieList);
     }
 
-    getSingleMovie(selectedId:string|null):MovieInterface{
-        const movie:MovieInterface | undefined = this._movieList.find(movie => movie.id == selectedId);
-        if(movie) {
-            return movie;
-        }else {
-            //Meglio mostrare un ion-toast e tornare indietro piuttosto che ritornare questo
-            return {
-                
-                id:"Not Found",
-                title:"Unavailable",
-                genres:"Unavailable",
-                year:NaN,
-                runtimeMinutes:NaN
-            }
-
-        }
+    getSingleMovie(selectedId:string|null):Observable<MovieInterface>{
+        return this._http.get<MovieInterface>(`${this._baseUrl}/movies/${selectedId}`);
     }
 
     createMovie(movie:MovieInterface) {

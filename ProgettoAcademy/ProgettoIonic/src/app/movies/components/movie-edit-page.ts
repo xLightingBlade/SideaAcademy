@@ -25,9 +25,11 @@ export class MovieEditPage{
                 this.movieId = paramMap.get('id');
                 console.log("Caught route id : " + this.movieId);
                 
-                this.selectedMovie = _movieService.getSingleMovie(this.movieId);
-                this._setForm();
-                this.pageTitle = "Editing movie " + this.selectedMovie.title;
+                this._movieService.getSingleMovie(this.movieId).subscribe((result:MovieInterface) => {
+                    this.selectedMovie = result;
+                    this._setForm();
+                    this.pageTitle = "Editing movie " + this.selectedMovie.title;
+                } );
             })
     }
 
@@ -37,7 +39,7 @@ export class MovieEditPage{
             title: new FormControl(this.selectedMovie.title, Validators.required),
             genres: new FormControl(this.selectedMovie.genres),
             year: new FormControl(this.selectedMovie.year),
-            runtimeMinutes: new FormControl(this.selectedMovie.runtimeMinutes),
+            runningTime: new FormControl(this.selectedMovie.runningTime),
         })
         this.movieEditForm.valueChanges.subscribe((form:FormGroup) => console.log(form));
     }
