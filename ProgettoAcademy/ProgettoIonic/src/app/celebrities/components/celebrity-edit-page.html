@@ -21,10 +21,10 @@
                 <ion-input label="Name" placeholder="primaryName.value" formControlName="primaryName" type="text"></ion-input>
             </ion-item>
             <ion-item>
-                <ion-input label="Birth year" placeholder="birthYear.value" formControlName="birthYear" type="text"></ion-input>
+                <ion-input label="Birth year" placeholder="birthYear.value" formControlName="birthYear" type="number"></ion-input>
             </ion-item>
             <ion-item>
-                <ion-input label="Death year" placeholder="deathYear.value" formControlName="deathYear" type="text"></ion-input>
+                <ion-input label="Death year" placeholder="deathYear.value" formControlName="deathYear" type="number"></ion-input>
             </ion-item>
         </ion-list>
         <ion-button type="submit" color="tertiary" fill="outline" [disabled]="!celebrityEditForm.valid">Confirm edit</ion-button>

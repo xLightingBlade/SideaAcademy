@@ -21,14 +21,14 @@
                 <ion-input label="Title" placeholder="title.value" formControlName="title" type="text"></ion-input>
             </ion-item>
             <ion-item>
-                <ion-input label="Release Year" placeholder="year.value" formControlName="year" type="text"></ion-input>
+                <ion-input label="Release Year" placeholder="year.value" formControlName="year" type="number"></ion-input>
             </ion-item>
             <ion-item>
                 <ion-input label="Genres" placeholder="genres.value" formControlName="genres" type="text"></ion-input>
             </ion-item>
             <ion-item>
                 <ion-input label="Duration(m)" placeholder="runtimeMinutes.value"
-                 formControlName="runtimeMinutes" type="text"></ion-input>
+                 formControlName="runtimeMinutes" type="number"></ion-input>
             </ion-item>
         </ion-list>
         <ion-button type="submit" color="tertiary" fill="outline" [disabled]="!movieEditForm.valid">Confirm edit</ion-button>
