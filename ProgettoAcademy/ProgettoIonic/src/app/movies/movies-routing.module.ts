@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { MoviesPage } from './movies.page';
 import { MovieDetail } from './components/movie-detail-page';
 import { MovieEditPage } from './components/movie-edit-page';
-import { MovieDeletePage } from './components/movie-delete-page';
 import { MovieCreatePage } from './components/movie-create-page'
 
 const routes: Routes = [
@@ -18,10 +17,6 @@ const routes: Routes = [
   {
     path:'edit/:id',
     component:MovieEditPage,
-  },
-  {
-    path:'delete/:id',
-    component:MovieDeletePage,
   },
   {
     path:'create',

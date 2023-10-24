@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { EmittedObject } from './interfaces/emitted-object-interface';
 import { CommonList } from '../shared/interfaces/common-list';
 import { Observable, Subject, Subscriber, from } from 'rxjs';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-movies',
@@ -19,7 +20,8 @@ export class MoviesPage {
   constructor(
     private _movieService:MovieService,
     private _movieRouter:Router,
-    private _activateRoute:ActivatedRoute) {
+    private _activateRoute:ActivatedRoute,
+    private _toastController:ToastController) {
 
       this._movieService.$movieObservable$.subscribe((films : MovieInterface[]) => {
         this.movieList = films.map((movie:MovieInterface) => {
@@ -52,7 +54,7 @@ export class MoviesPage {
         break;
       }
       case 'delete' : {
-        this._goToMovieDelete(this.selectedMovieId);
+        this._deleteMovie(this.selectedMovieId);
         break;
       }
       case 'create' : {
@@ -71,9 +73,21 @@ export class MoviesPage {
     this._movieRouter.navigate(['edit',id], {relativeTo:this._activateRoute});
   }
 
-  private _goToMovieDelete(id:string) {
-    console.log("redirecting to movie deleting");
-    this._movieRouter.navigate(['delete',id], {relativeTo:this._activateRoute});
+  private _deleteMovie(movieId:string) {
+    this._movieService.deleteMovie(movieId);
+    this.presentToastAfterDelete();
+  }
+
+  //valutare di renderlo un metodo comune
+  async presentToastAfterDelete() {
+    const toast = await this._toastController.create({
+      message: 'Movie successfully deleted',
+      duration: 3000,
+      position: 'bottom',
+      cssClass:'delete-toast'
+    });
+
+    await toast.present();
   }
 
   private _goToMovieCreate() {

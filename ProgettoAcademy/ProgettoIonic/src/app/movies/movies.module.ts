@@ -9,7 +9,6 @@ import { MovieDetail } from './components/movie-detail-page';
 
 import { MoviesPageRoutingModule } from './movies-routing.module';
 import { MovieEditPage } from './components/movie-edit-page';
-import { MovieDeletePage } from './components/movie-delete-page';
 import { MovieCreatePage } from './components/movie-create-page';
 import { SharedHeaderModule } from '../shared/components/shared-header.module';
 
@@ -22,6 +21,6 @@ import { SharedHeaderModule } from '../shared/components/shared-header.module';
     MoviesPageRoutingModule,
     SharedHeaderModule,
   ],
-  declarations: [MoviesPage, MoviesPageContent, MovieDetail, MovieEditPage, MovieDeletePage, MovieCreatePage]
+  declarations: [MoviesPage, MoviesPageContent, MovieDetail, MovieEditPage,MovieCreatePage]
 })
 export class MoviesPageModule {}
