@@ -19,13 +19,13 @@
                 <ion-input label="Title" formControlName="title" type="text"></ion-input>
             </ion-item>
             <ion-item>
-                <ion-input label="Release Year" formControlName="year" type="text"></ion-input>
+                <ion-input label="Release Year" formControlName="year" type="number"></ion-input>
             </ion-item>
             <ion-item>
                 <ion-input label="Genres" formControlName="genres" type="text"></ion-input>
             </ion-item>
             <ion-item>
-                <ion-input label="Duration(m)" formControlName="runtimeMinutes" type="text"></ion-input>
+                <ion-input label="Duration(m)" formControlName="runtimeMinutes" type="number"></ion-input>
             </ion-item>
         </ion-list>
         <ion-button type="submit" color="tertiary" fill="outline" [disabled]="!movieCreateForm.valid">Confirm creation</ion-button>

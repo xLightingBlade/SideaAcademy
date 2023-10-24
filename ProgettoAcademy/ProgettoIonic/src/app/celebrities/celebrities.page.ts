@@ -43,6 +43,8 @@ export class CelebritiesPage {
       this.goToCelebrityEdit(this.selectedCelebrityId);
     } else if(emittedObject.actionSelected == "delete") {
       this.goToCelebrityDelete(this.selectedCelebrityId);
+    } else if(emittedObject.actionSelected == "create") {
+      this.goToCelebrityCreation();
     }
   }
 
@@ -59,6 +61,11 @@ export class CelebritiesPage {
   private goToCelebrityDelete(id:string) {
     console.log("redirecting to Celebrity deleting");
     this._celebritiesRouter.navigate(['delete',this.selectedCelebrityId], {relativeTo:this._activateRoute});
+  }
+
+  private goToCelebrityCreation() {
+    console.log("Redirecting to movie creation");
+    this._celebritiesRouter.navigate(['create'], {relativeTo:this._activateRoute});
   }
 
 }

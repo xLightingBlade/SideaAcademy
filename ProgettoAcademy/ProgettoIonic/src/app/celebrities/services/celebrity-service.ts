@@ -6,6 +6,7 @@ import { Subject } from "rxjs";
     providedIn:'root',
 })
 export class CelebrityService{
+
     private _celebrityList:CelebrityInterface[] = [
         {
             id:"1",
@@ -29,6 +30,7 @@ export class CelebrityService{
 
     private _celebritySubject$ = new Subject<CelebrityInterface[]>();
     $celebrityObservable$ = this._celebritySubject$.asObservable();
+    private _initialLength = this._celebrityList.length;
 
     getCelebrityList(){
         this._celebritySubject$.next(this._celebrityList);
@@ -47,6 +49,17 @@ export class CelebrityService{
                 deathYear:NaN
             }
         }
+    }
+
+    createCelebrity(celebrity: CelebrityInterface) {
+        this._initialLength+=1;
+        celebrity.id = (this._initialLength).toString();
+        const movieToCreateIdx:number = this._celebrityList.findIndex((item:CelebrityInterface) => item.id == celebrity.id)
+        /*if(movieToCreateIdx == 1){
+            return;
+        }*/
+        this._celebrityList.push(celebrity);
+        this._celebritySubject$.next(this._celebrityList);
     }
 
     updatecelebrity(celebrity:CelebrityInterface){

@@ -31,4 +31,7 @@ export class CelebritiesPageContent{
     emitCelebrityIdForDelete(id:string){
         this.clickedCelebrity.emit({id : id, actionSelected : "delete"});
     }
+    emitEventForCreation() {
+        this.clickedCelebrity.emit({id:"", actionSelected:"create"});
+    }
 }
