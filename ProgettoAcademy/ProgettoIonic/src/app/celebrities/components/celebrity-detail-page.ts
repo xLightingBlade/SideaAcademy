@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { CelebrityInterface } from "../interfaces/celebrity-interface";
 import { CelebrityService } from "../services/celebrity-service";
+import { Location } from "@angular/common";
 
 @Component({
     selector:'celebrity-detail',
@@ -11,18 +12,24 @@ import { CelebrityService } from "../services/celebrity-service";
 export class CelebrityDetail{
 
     celebrityId:string | null= "";
-
+    pageTitle:string="";
     selectedCelebrity!: CelebrityInterface;
 
     constructor(
         private _route:ActivatedRoute,
-        private _celebrityService:CelebrityService){
+        private _celebrityService:CelebrityService,
+        private _location:Location){
 
         this._route.paramMap.subscribe( paramMap => {
             this.celebrityId = paramMap.get('id');
             console.log("Caught route id : " + this.celebrityId);
             
             this.selectedCelebrity = _celebrityService.getSingleCelebrity(this.celebrityId);
+            this.pageTitle = this.selectedCelebrity.primaryName;
         })
+    }
+    
+    navigateBack() {
+        this._location.back();
     }
 }

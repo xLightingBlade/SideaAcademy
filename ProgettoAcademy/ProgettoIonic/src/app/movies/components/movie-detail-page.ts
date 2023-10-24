@@ -26,7 +26,7 @@ export class MovieDetail{
             console.log("Caught route id : " + this.movieId);
             
             this.selectedMovie = _movieService.getSingleMovie(this.movieId);
-            this.pageTitle = "Editing movie " + this.selectedMovie.title;
+            this.pageTitle =  this.selectedMovie.title;
         })
     }
 

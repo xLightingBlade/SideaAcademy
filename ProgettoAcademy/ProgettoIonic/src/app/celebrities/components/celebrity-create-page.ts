@@ -9,6 +9,7 @@ import { Location } from "@angular/common";
     styleUrls:['celebrity-create-page.scss']
 })
 export class CelebrityCreatePage{
+    pageTitle = "Creating new celebrity";
     celebrityCreateForm!: FormGroup;
     constructor(
         private _celebrityService:CelebrityService,
@@ -27,6 +28,10 @@ export class CelebrityCreatePage{
     submitForm() {
         console.log("Created celebrity: ",this.celebrityCreateForm.value);
         this._celebrityService.createCelebrity(this.celebrityCreateForm.value);
+        this.navigateBack();
+    }
+
+    navigateBack() {
         this._location.back();
     }
 }

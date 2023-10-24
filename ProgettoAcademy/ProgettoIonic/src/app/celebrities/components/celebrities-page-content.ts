@@ -14,6 +14,7 @@ export class CelebritiesPageContent{
     //valutare di fare tre eventemitter diversi
     @Output() clickedCelebrity = new EventEmitter<EmittedObject>;
 
+    pageTitle="Celebrities";
     constructor(){}
     
     clicked(name:string){

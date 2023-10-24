@@ -1,4 +1,4 @@
-<ion-header [translucent]="true">
+<!--<ion-header [translucent]="true">
     <ion-toolbar>
       <ion-title>
         Celebrities
@@ -7,7 +7,10 @@
         <ion-icon slot="icon-only" name="add-circle-outline"></ion-icon>
       </ion-button>
     </ion-toolbar>
-  </ion-header>
+  </ion-header>-->
+
+<app-header [pageTitle] = "pageTitle" [showCreateButton] = true [showBackButton] = false
+(clickEvent) = "emitEventForCreation()"></app-header>
 
 <ion-content>
     <ion-list id = "celebrity-list">

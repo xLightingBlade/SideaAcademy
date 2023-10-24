@@ -11,7 +11,7 @@ import { MoviesPageRoutingModule } from './movies-routing.module';
 import { MovieEditPage } from './components/movie-edit-page';
 import { MovieDeletePage } from './components/movie-delete-page';
 import { MovieCreatePage } from './components/movie-create-page';
-import { SharedHeader } from '../shared/components/shared-header';
+import { SharedHeaderModule } from '../shared/components/shared-header.module';
 
 @NgModule({
   imports: [
@@ -19,9 +19,9 @@ import { SharedHeader } from '../shared/components/shared-header';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    MoviesPageRoutingModule
+    MoviesPageRoutingModule,
+    SharedHeaderModule,
   ],
-  declarations: [MoviesPage, MoviesPageContent, MovieDetail, MovieEditPage, MovieDeletePage, MovieCreatePage,
-    SharedHeader]
+  declarations: [MoviesPage, MoviesPageContent, MovieDetail, MovieEditPage, MovieDeletePage, MovieCreatePage]
 })
 export class MoviesPageModule {}

@@ -10,6 +10,7 @@ import { CelebrityEditPage } from './components/celebrity-edit-page';
 import { CelebrityDeletePage } from './components/celebrity-delete-page';
 import { CelebritiesPageContent } from './components/celebrities-page-content';
 import { CelebrityCreatePage } from './components/celebrity-create-page';
+import { SharedHeaderModule } from '../shared/components/shared-header.module';
 
 @NgModule({
   imports: [
@@ -17,9 +18,10 @@ import { CelebrityCreatePage } from './components/celebrity-create-page';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    CelebritiesPageRoutingModule
+    CelebritiesPageRoutingModule,
+    SharedHeaderModule,
   ],
   declarations: [CelebritiesPage, CelebritiesPageContent, CelebrityDetail, CelebrityEditPage, CelebrityDeletePage,
-    CelebrityCreatePage]
+    CelebrityCreatePage,]
 })
 export class CelebritiesPageModule {}

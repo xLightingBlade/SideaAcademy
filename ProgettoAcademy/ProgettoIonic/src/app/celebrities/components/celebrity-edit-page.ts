@@ -13,7 +13,7 @@ import { Location } from "@angular/common";
 export class CelebrityEditPage{
     
     celebrityId:string | null= "";
-
+    pageTitle:string="";
     selectedCelebrity!: CelebrityInterface;
     celebrityEditForm!: FormGroup;
 
@@ -27,6 +27,7 @@ export class CelebrityEditPage{
             console.log("Caught route id : " + this.celebrityId);
             
             this.selectedCelebrity = _celebrityService.getSingleCelebrity(this.celebrityId);
+            this.pageTitle = "Editing celebrity " + this.selectedCelebrity.primaryName;
             this._setForm();
         })
     }
@@ -44,6 +45,10 @@ export class CelebrityEditPage{
         //Chiaramente per adesso al refresh della pagina si resetta la lista di film, perchè le modifiche non vengono salvate seriamente
         console.log("Updated celebrity: ",this.celebrityEditForm.value);
         this._celebrityService.updatecelebrity(this.celebrityEditForm.value);
+        this.navigateBack();
+    }
+
+    navigateBack() {
         this._location.back();
     }
 }
