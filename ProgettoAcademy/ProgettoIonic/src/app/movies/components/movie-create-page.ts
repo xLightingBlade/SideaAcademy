@@ -9,6 +9,7 @@ import { Location } from "@angular/common";
     styleUrls:['movie-create-page.scss']
 })
 export class MovieCreatePage{
+    pageTitle = "Creating new movie";
     movieCreateForm!: FormGroup;
     constructor(
         private _movieService:MovieService,
@@ -29,6 +30,10 @@ export class MovieCreatePage{
     submitForm() {
         console.log("Created movie: ",this.movieCreateForm.value);
         this._movieService.createMovie(this.movieCreateForm.value);
+        this.navigateBack();
+    }
+
+    navigateBack() {
         this._location.back();
     }
 }

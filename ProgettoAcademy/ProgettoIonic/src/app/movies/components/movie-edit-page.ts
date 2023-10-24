@@ -11,9 +11,8 @@ import { Location } from "@angular/common";
     styleUrls:['movie-edit-page.scss']
 })
 export class MovieEditPage{
-    
     movieId:string | null= "";
-
+    pageTitle:string = "";
     selectedMovie!: MovieInterface;
     movieEditForm!: FormGroup;
 
@@ -22,14 +21,14 @@ export class MovieEditPage{
         private _movieService:MovieService,
         private _location:Location){
 
-        this._route.paramMap.subscribe( paramMap => {
-            this.movieId = paramMap.get('id');
-            console.log("Caught route id : " + this.movieId);
-            
-            this.selectedMovie = _movieService.getSingleMovie(this.movieId);
-            this._setForm();
-            
-        })
+            this._route.paramMap.subscribe( paramMap => {
+                this.movieId = paramMap.get('id');
+                console.log("Caught route id : " + this.movieId);
+                
+                this.selectedMovie = _movieService.getSingleMovie(this.movieId);
+                this._setForm();
+                this.pageTitle = "Editing movie " + this.selectedMovie.title;
+            })
     }
 
     private _setForm() {
@@ -46,6 +45,10 @@ export class MovieEditPage{
     submitForm() {
         console.log("Updated movie: ",this.movieEditForm.value);
         this._movieService.updateMovie(this.movieEditForm.value);
+        this.navigateBack();
+    }
+
+    navigateBack() {
         this._location.back();
     }
 }

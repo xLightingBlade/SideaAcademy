@@ -1,11 +1,14 @@
-<ion-header>
+<!--<ion-header>
     <ion-toolbar>
         <ion-title>Movie Detail</ion-title>
         <ion-buttons slot="start">
             <ion-back-button defaultHref="/tabs/movies"></ion-back-button>
         </ion-buttons>
     </ion-toolbar>
-</ion-header>
+</ion-header>-->
+
+<app-header [pageTitle]="pageTitle" (clickEvent)="navigateBack()"></app-header>
+
 <ion-content>
     <ion-list id = "movie-detail" *ngIf="selectedMovie">
         <ion-item>

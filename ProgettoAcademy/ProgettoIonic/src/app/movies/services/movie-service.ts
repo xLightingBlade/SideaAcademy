@@ -71,17 +71,13 @@ export class MovieService{
     createMovie(movie:MovieInterface) {
         this._initialLength+=1;
         movie.id = (this._initialLength).toString();
-        const movieToCreateIdx:number = this._movieList.findIndex((item:MovieInterface) => item.id == movie.id)
-        /*if(movieToCreateIdx == 1){
-            return;
-        }*/
         this._movieList.push(movie);
         this._movieListSubject$.next(this._movieList);
     }
 
     updateMovie(movie:MovieInterface){
         console.log(movie.id);
-        const movieToUpdateIdx:number = this._movieList.findIndex((item:MovieInterface) => item.id == movie.id)
+        const movieToUpdateIdx:number = this._getIndex(movie.id);
         if(movieToUpdateIdx != -1) {
             this._movieList[movieToUpdateIdx] = movie;
         }
@@ -89,16 +85,20 @@ export class MovieService{
     }
 
     deleteMovie(movieId:string){
+        
         //si dovrebbe filtrare sul subject
-
         console.log(movieId);
         
-        const movieToDeleteIdx:number = this._movieList.findIndex((item:MovieInterface) => item.id == movieId)
+        const movieToDeleteIdx:number = this._getIndex(movieId);
         if(movieToDeleteIdx != -1) {
             this._movieList.splice(movieToDeleteIdx, 1);
         }
         this._movieListSubject$.next(this._movieList);
         
+    }
+
+    private _getIndex(movieId:string):number {
+        return this._movieList.findIndex((item:MovieInterface) => item.id == movieId)
     }
 
 }

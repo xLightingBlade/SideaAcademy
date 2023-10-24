@@ -1,0 +1,16 @@
+<ion-header [translucent]="true">
+    <ion-toolbar>
+      <ion-title>{{pageTitle}}</ion-title>
+      <ion-buttons slot="end">
+        <ion-button *ngIf="showCreateButton" (click) ="clickEventEmit()" fill="outline" color="tertiary">
+            <ion-icon slot="icon-only" name="add-circle-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+
+      <ion-buttons slot="start">
+        <ion-button *ngIf ="showBackButton" (click)="clickEventEmit()" color = "white">
+            <ion-icon slot="icon-only" name="arrow-back-circle-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>

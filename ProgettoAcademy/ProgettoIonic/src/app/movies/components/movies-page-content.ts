@@ -9,6 +9,8 @@ import { CommonList } from "src/app/shared/interfaces/common-list";
     styleUrls:['movies-page-content.scss']
 })
 export class MoviesPageContent{
+    pageTitle = "Movies";
+    
     @Input() movieList:CommonList[] = [];
 
     //valutare di fare tre eventemitter diversi

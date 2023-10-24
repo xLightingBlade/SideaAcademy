@@ -1,11 +1,13 @@
-<ion-header>
+<!--<ion-header>
     <ion-toolbar>
         <ion-title>Creating new movie</ion-title>
         <ion-buttons slot="start">
             <ion-back-button defaultHref="/tabs/movies"></ion-back-button>
         </ion-buttons>
     </ion-toolbar>
-</ion-header>
+</ion-header>-->
+
+<app-header [pageTitle]="pageTitle" (clickEvent)="navigateBack()"></app-header>
 
 <ion-content [fullscreen]="true">
     <ion-header collapse="condense">
