@@ -78,7 +78,11 @@ export class MoviesPage {
     this.presentToastAfterDelete();
   }
 
-  //valutare di renderlo un metodo comune
+  private _goToMovieCreate() {
+    console.log("Redirecting to movie creation");
+    this._movieRouter.navigate(['create'], {relativeTo:this._activateRoute});
+  }
+
   async presentToastAfterDelete() {
     const toast = await this._toastController.create({
       message: 'Movie successfully deleted',
@@ -86,12 +90,7 @@ export class MoviesPage {
       position: 'bottom',
       cssClass:'delete-toast'
     });
-
+  
     await toast.present();
-  }
-
-  private _goToMovieCreate() {
-    console.log("Redirecting to movie creation");
-    this._movieRouter.navigate(['create'], {relativeTo:this._activateRoute});
   }
 }
