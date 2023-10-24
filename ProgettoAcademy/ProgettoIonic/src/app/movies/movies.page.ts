@@ -22,24 +22,18 @@ export class MoviesPage {
     private _movieRouter:Router,
     private _activateRoute:ActivatedRoute,
     private _toastController:ToastController) {
-
-      this._movieService.$movieObservable$.subscribe((films : MovieInterface[]) => {
-        this.movieList = films.map((movie:MovieInterface) => {
+      //Non si fa più uso del subject, adesso entrano in gioco le chiamate API
+      this._movieService.getMovieList().subscribe((movies:MovieInterface[]) => {
+        //Il mapping si fa QUI e non nel service perchè se la faccio a monte poi il service mi restituisce soltanto la lista di
+        //CommonList, ma magari io voglio la lista di MovieInterface
+        this.movieList = movies.map((movie:MovieInterface) => {
           return {
             id:movie.id,
             name:movie.title
           }
-        })
-      });
-      this.getMovies();
-  }
-
-
-  getMovies(){
-    this._movieService.getMovieList();
-  }
+        })});
+    }
   
-
   //Raccogliere i vari metodi qui sotto
   public selectActionForMovie(emittedObject:EmittedObject){
     this.selectedMovieId = emittedObject.id;

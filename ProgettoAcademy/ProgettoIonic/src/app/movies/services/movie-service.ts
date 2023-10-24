@@ -1,55 +1,34 @@
 import { Injectable } from "@angular/core";
 import { MovieInterface } from "../interfaces/movie-interface";
-import { BehaviorSubject, Subject } from "rxjs";
+import { BehaviorSubject, Observable, Subject, map } from "rxjs";
+import {HttpClient} from "@angular/common/http"
+import { environment } from "src/environments/environment";
 
 @Injectable({
     providedIn:'root'
 })
 export class MovieService{
-
-    private _movieList:MovieInterface[] = [
-        {
-            id:"1",
-            title:"movieOne",
-            genres:"Action",
-            year:2023,
-            runtimeMinutes:120
-        },
-        {
-            id:"2",
-            title:"movieTwo",
-            genres:"Dramatic",
-            year:2013,
-            runtimeMinutes:110
-        },
-        {
-            id:"3",
-            title:"movieThree",
-            genres:"Comedy",
-            year:2023,
-            runtimeMinutes:120
-        },
-        {
-            id:"4",
-            title:"movieFour",
-            genres:"Aiuto",
-            year:1990,
-            runtimeMinutes:90
-        }
-    ]
+    private _baseUrl = "";
+    private _movieList:MovieInterface[] = [];
 
     private _initialLength = this._movieList.length;
 
+
+    constructor(private readonly _http:HttpClient){
+        this._baseUrl = environment.baseUrl;
+    }
+    
     //Adesso ho reso privato il mio subject, altrimenti avrei potuto fare next() da ovunque. Ma adesso come vi accedo da fuori?
     private _movieListSubject$ = new Subject<MovieInterface[]>();
     //Creo un osservabile il cui unico scopo è di sola lettura, su di lui non posso farci i next(), che devono essere fatti al subject.
     $movieObservable$ = this._movieListSubject$.asObservable();
 
-    constructor(){}
-    
-
-    getMovieList(){
-        this._movieListSubject$.next(this._movieList);
+    getMovieList():Observable<MovieInterface[]> {
+        //TODO creare interfaccia corretta, togliere quell'any ASAP
+        return this._http.get<MovieInterface[]>(`${this._baseUrl}/movies?page=0&size=25&order_by=id`).pipe(map((item:any) => {
+            return item.movies;
+        }))
+        //this._movieListSubject$.next(this._movieList);
     }
 
     getSingleMovie(selectedId:string|null):MovieInterface{
@@ -59,12 +38,14 @@ export class MovieService{
         }else {
             //Meglio mostrare un ion-toast e tornare indietro piuttosto che ritornare questo
             return {
+                
                 id:"Not Found",
                 title:"Unavailable",
                 genres:"Unavailable",
                 year:NaN,
                 runtimeMinutes:NaN
             }
+
         }
     }
 
@@ -99,6 +80,10 @@ export class MovieService{
 
     private _getIndex(movieId:string):number {
         return this._movieList.findIndex((item:MovieInterface) => item.id == movieId)
+    }
+
+    totalFilm():number {
+        return this._movieList.length;
     }
 
 }

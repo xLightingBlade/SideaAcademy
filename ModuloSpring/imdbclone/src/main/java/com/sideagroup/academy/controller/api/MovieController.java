@@ -32,6 +32,7 @@ sarà spring poi a richiamare il controller quando serve, non noi
 //Il controller(web) per ogni richiesta chiama metodi del service, il service per effettuarle
 //usa i metodi esposti dal repository. Il repository ottiene domain model, il mapper li trasforma in dto
 //I dto vengono passati al web e restituiti. E anche il percorso inverso avviene, come in una post
+@CrossOrigin(origins = "http://localhost:8100")
 @RestController
 /*
 Quest'altra annotazione (RequestMapping)serve invece a dire che il controller in questione si attiva
