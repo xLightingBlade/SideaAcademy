@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CelebrityInterface } from './interfaces/celebrity-interface';
 import { EmittedObject } from '../movies/interfaces/emitted-object-interface';
 import { CommonList } from '../shared/interfaces/common-list';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-celebrities',
@@ -17,7 +18,8 @@ export class CelebritiesPage {
   constructor(
     private _celebritiesService:CelebrityService,
     private _activateRoute:ActivatedRoute,
-    private _celebritiesRouter:Router) {
+    private _celebritiesRouter:Router,
+    private _toastController:ToastController) {
 
       this._celebritiesService.$celebrityObservable$.subscribe((celebrities:CelebrityInterface[]) => {
         this.celebrityList = celebrities.map((celebrity:CelebrityInterface) => {
@@ -42,7 +44,7 @@ export class CelebritiesPage {
     } else if(emittedObject.actionSelected == "edit") {
       this.goToCelebrityEdit(this.selectedCelebrityId);
     } else if(emittedObject.actionSelected == "delete") {
-      this.goToCelebrityDelete(this.selectedCelebrityId);
+      this._deleteMovie(this.selectedCelebrityId);
     } else if(emittedObject.actionSelected == "create") {
       this.goToCelebrityCreation();
     }
@@ -58,10 +60,22 @@ export class CelebritiesPage {
     this._celebritiesRouter.navigate(['edit',this.selectedCelebrityId], {relativeTo:this._activateRoute});
   }
 
-  private goToCelebrityDelete(id:string) {
-    console.log("redirecting to Celebrity deleting");
-    this._celebritiesRouter.navigate(['delete',this.selectedCelebrityId], {relativeTo:this._activateRoute});
+  private _deleteMovie(id:string) {
+    this._celebritiesService.deleteCelebrity(id);
+    this.presentToastAfterDelete();
   }
+
+    //valutare di renderlo un metodo comune
+    async presentToastAfterDelete() {
+      const toast = await this._toastController.create({
+        message: 'Celebrity successfully deleted',
+        duration: 3000,
+        position: 'bottom',
+        cssClass:'delete-toast'
+      });
+  
+      await toast.present();
+    }
 
   private goToCelebrityCreation() {
     console.log("Redirecting to movie creation");

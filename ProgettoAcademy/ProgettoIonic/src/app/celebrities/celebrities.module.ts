@@ -7,7 +7,6 @@ import { CelebritiesPage } from './celebrities.page';
 import { CelebritiesPageRoutingModule } from './celebrities-routing.module';
 import { CelebrityDetail } from './components/celebrity-detail-page';
 import { CelebrityEditPage } from './components/celebrity-edit-page';
-import { CelebrityDeletePage } from './components/celebrity-delete-page';
 import { CelebritiesPageContent } from './components/celebrities-page-content';
 import { CelebrityCreatePage } from './components/celebrity-create-page';
 import { SharedHeaderModule } from '../shared/components/shared-header.module';
@@ -21,7 +20,7 @@ import { SharedHeaderModule } from '../shared/components/shared-header.module';
     CelebritiesPageRoutingModule,
     SharedHeaderModule,
   ],
-  declarations: [CelebritiesPage, CelebritiesPageContent, CelebrityDetail, CelebrityEditPage, CelebrityDeletePage,
+  declarations: [CelebritiesPage, CelebritiesPageContent, CelebrityDetail, CelebrityEditPage,
     CelebrityCreatePage,]
 })
 export class CelebritiesPageModule {}
