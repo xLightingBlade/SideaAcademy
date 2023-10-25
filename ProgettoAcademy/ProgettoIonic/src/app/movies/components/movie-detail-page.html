@@ -39,8 +39,8 @@
             </ion-item>
             <div *ngFor="let castItem of selectedMovie.cast" slot="content">
             <ion-list>
-                <ion-item>
-                    <ion-label><a [routerLink]="['../../../celebrities/detail', castItem.celebrityId]">{{castItem.celebrityName}}</a></ion-label>
+                <ion-item button>
+                    <ion-label [routerLink]="['../../../celebrities/detail', castItem.celebrityId]">{{castItem.celebrityName}}</ion-label>
                 </ion-item>
             </ion-list>
         </div>
