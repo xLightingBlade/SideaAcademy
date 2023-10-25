@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { CelebrityInterface } from "../interfaces/celebrity-interface";
-import { EmittedObject } from "src/app/movies/interfaces/emitted-object-interface"; //tanto poi si deve cambiare
+import { EmittedObject } from "src/app/shared/interfaces/emitted-object-interface"; //tanto poi si deve cambiare
 import { CommonList } from "src/app/shared/interfaces/common-list";
 
 @Component({

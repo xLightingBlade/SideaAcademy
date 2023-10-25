@@ -2,7 +2,7 @@ import { Component, Output } from '@angular/core';
 import { CelebrityService } from './services/celebrity-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CelebrityInterface } from './interfaces/celebrity-interface';
-import { EmittedObject } from '../movies/interfaces/emitted-object-interface';
+import { EmittedObject } from '../shared/interfaces/emitted-object-interface';
 import { CommonList } from '../shared/interfaces/common-list';
 import { ToastController } from '@ionic/angular';
 

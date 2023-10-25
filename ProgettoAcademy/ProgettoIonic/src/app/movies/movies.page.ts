@@ -2,7 +2,7 @@ import { Component, Output } from '@angular/core';
 import { MovieInterface } from './interfaces/movie-interface';
 import { MovieService } from './services/movie-service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { EmittedObject } from './interfaces/emitted-object-interface';
+import { EmittedObject } from '../shared/interfaces/emitted-object-interface';
 import { CommonList } from '../shared/interfaces/common-list';
 import { Observable, Subject, Subscriber, from } from 'rxjs';
 import { ToastController } from '@ionic/angular';
@@ -33,6 +33,19 @@ export class MoviesPage {
           }
         })});
     }
+
+    /*
+    ionViewWillEnter() {
+      this._movieService.getMovieList().subscribe((movies:MovieInterface[]) => {
+        //Il mapping si fa QUI e non nel service perchè se la faccio a monte poi il service mi restituisce soltanto la lista di
+        //CommonList, ma magari io voglio la lista di MovieInterface
+        this.movieList = movies.map((movie:MovieInterface) => {
+          return {
+            id:movie.id,
+            name:movie.title
+          }
+        })});
+    }*/
   
   //Raccogliere i vari metodi qui sotto
   public selectActionForMovie(emittedObject:EmittedObject){
@@ -68,7 +81,7 @@ export class MoviesPage {
   }
 
   private _deleteMovie(movieId:string) {
-    this._movieService.deleteMovie(movieId);
+    this._movieService.deleteMovie(movieId).subscribe();
     this.presentToastAfterDelete();
   }
 
