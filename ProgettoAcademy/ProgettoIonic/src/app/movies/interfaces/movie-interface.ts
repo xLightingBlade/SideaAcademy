@@ -27,7 +27,6 @@ export interface MovieInterface{
     cast?:MovieCastInterface[],
     rating:MovieRatingInterface,
     countries?:MovieCountriesInterface[]
-
 }
 
 export interface MovieFormInterface {

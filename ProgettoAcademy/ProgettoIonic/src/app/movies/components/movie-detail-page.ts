@@ -14,8 +14,7 @@ export class MovieDetail{
     pageTitle:string = "";
     movieId:string | null= "";
 
-    selectedMovie!: MovieInterface;
-
+    selectedMovie: MovieInterface = {} as MovieInterface;
     constructor(
         private _route:ActivatedRoute,
         private _movieService:MovieService,

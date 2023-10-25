@@ -9,8 +9,8 @@
 
 <app-header [pageTitle]="pageTitle" (clickEvent)="navigateBack()"></app-header>
 
-<ion-content>
-    <ion-list id = "movie-detail" *ngIf="selectedMovie">
+<ion-content *ngIf="selectedMovie">
+    <ion-list id = "movie-detail">
         <ion-item>
             <ion-label>Movie Title</ion-label>
             <ion-label>{{selectedMovie.title}}</ion-label>
@@ -27,7 +27,25 @@
             <ion-label>Movie duration</ion-label>
             <ion-label>{{selectedMovie.runningTime}}</ion-label>
         </ion-item>
+        <ion-item *ngIf="selectedMovie.rating">
+            <ion-label>Movie rating</ion-label>
+            <ion-label>{{selectedMovie.rating.averageRating}}</ion-label>
+        </ion-item>
     </ion-list>
+    <ion-accordion-group *ngIf="selectedMovie.cast">
+        <ion-accordion value="cast">
+            <ion-item slot="header" color="tertiary">
+                <ion-label>Movie Cast</ion-label>
+            </ion-item>
+            <div *ngFor="let castItem of selectedMovie.cast" slot="content">
+            <ion-list>
+                <ion-item>
+                    <ion-label>{{castItem.celebrityName}}</ion-label>
+                </ion-item>
+            </ion-list>
+        </div>
+        </ion-accordion>
+    </ion-accordion-group>
 </ion-content>
 
 
