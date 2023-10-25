@@ -39,7 +39,7 @@
             </ion-item>
             <div *ngFor="let castItem of selectedMovie.cast" slot="content">
             <ion-list>
-                <ion-item>
+                <ion-item button (click)="navigateToCelebrity(castItem.celebrityId)">
                     <ion-label>{{castItem.celebrityName}}</ion-label>
                 </ion-item>
             </ion-list>
