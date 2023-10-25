@@ -36,8 +36,4 @@ export class CelebrityDetail{
     navigateBack() {
         this._location.back();
     }
-
-    navigateToMovie(movieId:string) {
-        this._router.navigate(['../../../movies','detail',movieId], {relativeTo: this._route});
-    }
 }

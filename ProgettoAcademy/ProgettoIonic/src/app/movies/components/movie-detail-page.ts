@@ -38,8 +38,4 @@ export class MovieDetail{
         this._location.back();
     }
 
-    navigateToCelebrity(celebrityId:string) {
-        this._router.navigate(['../../../celebrities','detail',celebrityId], {relativeTo: this._route});
-    }
-
 }

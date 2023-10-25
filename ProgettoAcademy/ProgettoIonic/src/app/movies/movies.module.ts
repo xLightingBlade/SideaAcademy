@@ -11,6 +11,7 @@ import { MoviesPageRoutingModule } from './movies-routing.module';
 import { MovieEditPage } from './components/movie-edit-page';
 import { MovieCreatePage } from './components/movie-create-page';
 import { SharedHeaderModule } from '../shared/components/shared-header.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
@@ -20,6 +21,7 @@ import { SharedHeaderModule } from '../shared/components/shared-header.module';
     ReactiveFormsModule,
     MoviesPageRoutingModule,
     SharedHeaderModule,
+    RouterModule,
   ],
   declarations: [MoviesPage, MoviesPageContent, MovieDetail, MovieEditPage,MovieCreatePage]
 })
