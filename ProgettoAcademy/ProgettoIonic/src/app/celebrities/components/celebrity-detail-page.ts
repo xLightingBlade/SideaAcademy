@@ -24,8 +24,11 @@ export class CelebrityDetail{
             this.celebrityId = paramMap.get('id');
             console.log("Caught route id : " + this.celebrityId);
             
-            this.selectedCelebrity = _celebrityService.getSingleCelebrity(this.celebrityId);
-            this.pageTitle = this.selectedCelebrity.primaryName;
+            this._celebrityService.getSingleCelebrity(this.celebrityId).subscribe((result:CelebrityInterface) => {
+                this.selectedCelebrity = result;
+                console.log(result);
+                this.pageTitle=this.selectedCelebrity.name;
+            })
         })
     }
     

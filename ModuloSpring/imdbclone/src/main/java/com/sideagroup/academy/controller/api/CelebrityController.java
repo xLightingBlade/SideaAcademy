@@ -19,6 +19,8 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
 
+
+@CrossOrigin(origins = "http://localhost:8100")
 @RestController
 @RequestMapping("api/v1/celebrities")
 @Tag(name = "Celebrities", description = "Celebrity management APIs")

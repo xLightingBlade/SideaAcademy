@@ -1,82 +1,41 @@
 import { Injectable } from "@angular/core";
-import { CelebrityInterface } from "../interfaces/celebrity-interface";
-import { Subject } from "rxjs";
+import { AllCelebritiesDtoInterface, CelebrityInterface } from "../interfaces/celebrity-interface";
+import { Observable, Subject, map } from "rxjs";
+import { HttpClient } from "@angular/common/http";
+import { environment } from "src/environments/environment";
 
 @Injectable({
     providedIn:'root',
 })
 export class CelebrityService{
+    private _baseUrl = "";
 
-    private _celebrityList:CelebrityInterface[] = [
-        {
-            id:"1",
-            primaryName:"celebrityFirst",
-            birthYear:1990,
-            deathYear:2023
-        },
-        {
-            id:"2",
-            primaryName:"celebritySecond",
-            birthYear:1990,
-            deathYear:2023
-        },
-        {
-            id:"3",
-            primaryName:"celebrityThird",
-            birthYear:1990,
-            deathYear:2023
-        }
-    ]
-
-    private _celebritySubject$ = new Subject<CelebrityInterface[]>();
-    $celebrityObservable$ = this._celebritySubject$.asObservable();
-    private _initialLength = this._celebrityList.length;
-
-    getCelebrityList(){
-        this._celebritySubject$.next(this._celebrityList);
+    constructor(private readonly _http:HttpClient){
+        this._baseUrl = environment.baseUrl;
     }
 
-    
-    getSingleCelebrity(selectedId:string|null):CelebrityInterface{
-        const celebrity:CelebrityInterface | undefined = this._celebrityList.find(celebrity => celebrity.id == selectedId);
-        if(celebrity) {
-            return celebrity;
-        }else {
-            return {
-                id:"Not Found",
-                primaryName:"Unavailable",
-                birthYear:NaN,
-                deathYear:NaN
-            }
-        }
+    getCelebrityList():Observable<CelebrityInterface[]> {
+        return this._http.get<AllCelebritiesDtoInterface>(`${this._baseUrl}/celebrities?page=0&size=25&order_by=id`).pipe(
+            map((item:AllCelebritiesDtoInterface) => {
+            return item.celebrities;
+        }))
     }
 
-    createCelebrity(celebrity: CelebrityInterface) {
-        this._initialLength+=1;
-        celebrity.id = (this._initialLength).toString();
-        const movieToCreateIdx:number = this._celebrityList.findIndex((item:CelebrityInterface) => item.id == celebrity.id)
-        /*if(movieToCreateIdx == 1){
-            return;
-        }*/
-        this._celebrityList.push(celebrity);
-        this._celebritySubject$.next(this._celebrityList);
+    getSingleCelebrity(selectedId:string|null):Observable<CelebrityInterface>{
+        return this._http.get<CelebrityInterface>(`${this._baseUrl}/celebrities/${selectedId}`);
     }
 
-    updatecelebrity(celebrity:CelebrityInterface){
-        const celebrityToUpdateIdx:number = this._celebrityList.findIndex((item:CelebrityInterface) => item.id == celebrity.id)
-        if(celebrityToUpdateIdx != -1) {
-            this._celebrityList[celebrityToUpdateIdx] = celebrity;
-        }
-        this._celebritySubject$.next(this._celebrityList);
+    createCelebrity(celebrity: CelebrityInterface):Observable<CelebrityInterface> {
+        return this._http.post<CelebrityInterface>(`${this._baseUrl}/celebrities`, celebrity);
     }
 
-    deleteCelebrity(celebrityId:string){
-        console.log(celebrityId);
-        const movieToDeleteIdx:number = this._celebrityList.findIndex((item:CelebrityInterface) => item.id == celebrityId)
-        if(movieToDeleteIdx != -1) {
-            this._celebrityList.splice(movieToDeleteIdx, 1);
-        }
-        this._celebritySubject$.next(this._celebrityList);
+    updatecelebrity(celebrity:CelebrityInterface):Observable<CelebrityInterface>{
+        console.log(celebrity.id);
+        return this._http.put<CelebrityInterface>(`${this._baseUrl}/celebrities/${celebrity.id}`, celebrity);
+    }
+
+    deleteCelebrity(celebrityId:string):Observable<unknown>{
+        return this._http.delete(`${this._baseUrl}/celebrities/${celebrityId}`);
     }
 
 }

@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { CelebrityService } from "../services/celebrity-service";
 import { Location } from "@angular/common";
+import { CelebrityInterface } from "../interfaces/celebrity-interface";
 
 @Component({
     selector:'celebrity-create',
@@ -19,16 +20,18 @@ export class CelebrityCreatePage{
 
     private _setForm() {
         this.celebrityCreateForm = new FormGroup({
-            primaryName: new FormControl("",Validators.required),
+            id:new FormControl("", Validators.required),
+            name: new FormControl("",Validators.required),
             birthYear: new FormControl(""),
             deathYear: new FormControl(""),
         })
     }
 
     submitForm() {
-        console.log("Created celebrity: ",this.celebrityCreateForm.value);
-        this._celebrityService.createCelebrity(this.celebrityCreateForm.value);
-        this.navigateBack();
+        this._celebrityService.createCelebrity(this.celebrityCreateForm.value).subscribe((item:CelebrityInterface) => {
+            this.navigateBack();
+            console.log("Created celebrity: ",this.celebrityCreateForm.value);
+        })
     }
 
     navigateBack() {

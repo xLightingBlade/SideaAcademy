@@ -21,20 +21,22 @@ export class CelebritiesPage {
     private _activateRoute:ActivatedRoute,
     private _celebritiesRouter:Router,
     private _toastController:ToastController) {
+      this._refreshCelebrities();
+  }
 
-      this._celebritiesService.$celebrityObservable$.subscribe((celebrities:CelebrityInterface[]) => {
-        this.celebrityList = celebrities.map((celebrity:CelebrityInterface) => {
-          return {
-            id:celebrity.id,
-            name:celebrity.primaryName
-          }
-        })
-      });
-      this.getCelebrities();
+  ionViewWillEnter() {
+    this._refreshCelebrities();
   }
   
-  getCelebrities(){
-    this._celebritiesService.getCelebrityList();
+  private _refreshCelebrities(){
+    this._celebritiesService.getCelebrityList().subscribe((celebs:CelebrityInterface[]) => {
+      this.celebrityList = celebs.map((celeb:CelebrityInterface) => {
+        return {
+          id:celeb.id,
+          name:celeb.name,
+        }
+      })
+    });
   }
 
   public selectActionForCelebrity(emittedObject:EmittedObject){
@@ -61,17 +63,25 @@ export class CelebritiesPage {
 
   private _goToCelebrityDetail(id:string) {
     console.log("redirecting to Celebrity detail");
-    this._celebritiesRouter.navigate(['detail',this.selectedCelebrityId], {relativeTo:this._activateRoute});
+    this._celebritiesRouter.navigate(['detail',id], {relativeTo:this._activateRoute});
   }
 
   private _goToCelebrityEdit(id:string) {
     console.log("redirecting to Celebrity editing");
-    this._celebritiesRouter.navigate(['edit',this.selectedCelebrityId], {relativeTo:this._activateRoute});
+    this._celebritiesRouter.navigate(['edit',id], {relativeTo:this._activateRoute});
+  }
+
+  
+  private _goToCelebrityCreation() {
+    console.log("Redirecting to movie creation");
+    this._celebritiesRouter.navigate(['create'], {relativeTo:this._activateRoute});
   }
 
   private _deleteCelebrity(id:string) {
-    this._celebritiesService.deleteCelebrity(id);
-    this.presentToastAfterDelete();
+    this._celebritiesService.deleteCelebrity(id).subscribe((item:unknown) => {
+      this.presentToastAfterDelete();
+      this._refreshCelebrities();
+    });
   }
 
     //valutare di renderlo un metodo comune
@@ -85,10 +95,5 @@ export class CelebritiesPage {
   
       await toast.present();
     }
-
-  private _goToCelebrityCreation() {
-    console.log("Redirecting to movie creation");
-    this._celebritiesRouter.navigate(['create'], {relativeTo:this._activateRoute});
-  }
 
 }
