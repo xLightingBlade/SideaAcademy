@@ -24,9 +24,9 @@ export interface MovieInterface{
     genres:string,
     year:number,
     runningTime:number,
-    cast:MovieCastInterface[],
+    cast?:MovieCastInterface[],
     rating:MovieRatingInterface,
-    countries:MovieCountriesInterface[]
+    countries?:MovieCountriesInterface[]
 
 }
 

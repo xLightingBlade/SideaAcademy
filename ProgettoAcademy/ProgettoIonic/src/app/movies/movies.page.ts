@@ -23,32 +23,27 @@ export class MoviesPage {
     private _movieRouter:Router,
     private _activateRoute:ActivatedRoute,
     private _toastController:ToastController) {
-      //Non si fa più uso del subject, adesso entrano in gioco le chiamate API
-      this._movieService.getMovieList().subscribe((movies:MovieInterface[]) => {
-        //Il mapping si fa QUI e non nel service perchè se la faccio a monte poi il service mi restituisce soltanto la lista di
-        //CommonList, ma magari io voglio la lista di MovieInterface
-        this.movieList = movies.map((movie:MovieInterface) => {
-          return {
-            id:movie.id,
-            name:movie.title
-          }
-        })});
+      this._refreshMovieList();
     }
-
-    /*
-    ionViewWillEnter() {
-      this._movieService.getMovieList().subscribe((movies:MovieInterface[]) => {
-        //Il mapping si fa QUI e non nel service perchè se la faccio a monte poi il service mi restituisce soltanto la lista di
-        //CommonList, ma magari io voglio la lista di MovieInterface
-        this.movieList = movies.map((movie:MovieInterface) => {
-          return {
-            id:movie.id,
-            name:movie.title
-          }
-        })});
-    }*/
   
-  //Raccogliere i vari metodi qui sotto
+
+  ionViewWillEnter() {
+    this._refreshMovieList();
+  }
+
+    
+  private _refreshMovieList():void {
+    this._movieService.getMovieList().subscribe((movies:MovieInterface[]) => {
+      this.movieList = movies.map((movie:MovieInterface) => {
+        return {
+          id:movie.id,
+          name:movie.title,
+          year:movie.year
+        }
+      })});
+  }
+
+
   public selectActionForMovie(emittedObject:EmittedObject){
     this.selectedMovieId = emittedObject.id;
     console.log("caught movie id : "+this.selectedMovieId);
@@ -71,6 +66,7 @@ export class MoviesPage {
     }
   }
 
+  
   private _goToMovieDetail(id:string) {
     console.log("redirecting to movie detail");
     this._movieRouter.navigate(['detail',id], {relativeTo:this._activateRoute});
@@ -82,8 +78,10 @@ export class MoviesPage {
   }
 
   private _deleteMovie(movieId:string) {
-    this._movieService.deleteMovie(movieId).subscribe();
-    this.presentToastAfterDelete();
+    this._movieService.deleteMovie(movieId).subscribe((item:unknown) => {
+      this.presentToastAfterDelete();
+      this._refreshMovieList();
+    });
   }
 
   private _goToMovieCreate() {

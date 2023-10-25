@@ -18,6 +18,9 @@
     <form *ngIf="movieCreateForm" [formGroup]="movieCreateForm" (ngSubmit)="submitForm()">
         <ion-list>
             <ion-item>
+                <ion-input label="ID" formControlName="id" type="text"></ion-input>
+            </ion-item>
+            <ion-item>
                 <ion-input label="Title" formControlName="title" type="text"></ion-input>
             </ion-item>
             <ion-item>

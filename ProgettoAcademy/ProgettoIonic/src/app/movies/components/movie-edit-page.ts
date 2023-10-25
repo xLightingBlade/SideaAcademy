@@ -45,9 +45,10 @@ export class MovieEditPage{
     }
 
     submitForm() {
-        this._movieService.updateMovie(this.movieEditForm.value).subscribe()
-        console.log("Updated movie: ",this.movieEditForm.value);
-        this.navigateBack();
+        this._movieService.updateMovie(this.movieEditForm.value).subscribe((item:MovieInterface) => {
+            console.log("Updated movie: ",this.movieEditForm.value);
+            this.navigateBack();
+        })
     }
 
     navigateBack() {

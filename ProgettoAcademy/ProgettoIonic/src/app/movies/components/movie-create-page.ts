@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { MovieService } from "../services/movie-service";
 import { Location } from "@angular/common";
+import { MovieInterface } from "../interfaces/movie-interface";
 
 @Component({
     selector:'movie-create',
@@ -19,8 +20,9 @@ export class MovieCreatePage{
 
     private _setForm() {
         this.movieCreateForm = new FormGroup({
+            id: new FormControl("", Validators.required),
             title: new FormControl("", Validators.required),
-            genres: new FormControl("", Validators.required),
+            genres: new FormControl(""),
             year: new FormControl(""),
             runningTime: new FormControl(""),
         })
@@ -28,9 +30,10 @@ export class MovieCreatePage{
     }
 
     submitForm() {
+        this._movieService.createMovie(this.movieCreateForm.value).subscribe((item:MovieInterface) => {
+            this.navigateBack();
+        });
         console.log("Created movie: ",this.movieCreateForm.value);
-        this._movieService.createMovie(this.movieCreateForm.value);
-        this.navigateBack();
     }
 
     navigateBack() {
