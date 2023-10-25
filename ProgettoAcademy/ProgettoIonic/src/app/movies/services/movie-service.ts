@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { AllMoviesDtoInterface, MovieInterface } from "../interfaces/movie-interface";
+import { AllMoviesDtoInterface, MovieFormInterface, MovieInterface } from "../interfaces/movie-interface";
 import { BehaviorSubject, Observable, Subject, map } from "rxjs";
 import {HttpClient} from "@angular/common/http"
 import { environment } from "src/environments/environment";
@@ -9,7 +9,6 @@ import { environment } from "src/environments/environment";
 })
 export class MovieService{
     private _baseUrl = "";
-    private _movieList:MovieInterface[] = [];
     constructor(private readonly _http:HttpClient){
         this._baseUrl = environment.baseUrl;
     }
@@ -26,11 +25,8 @@ export class MovieService{
     }
 
 
-    createMovie(movie:MovieInterface):Observable<MovieInterface> {
-        movie.rating = {
-            averageRating :0,
-            numVotes:0,
-        }
+    createMovie(movieForm:MovieFormInterface):Observable<MovieInterface> {
+        const movie = this._formToDto(movieForm);
         return this._http.post<MovieInterface>(`${this._baseUrl}/movies`, movie);
     }
 
@@ -41,6 +37,20 @@ export class MovieService{
 
     deleteMovie(movieId:string):Observable<unknown>{
         return this._http.delete(`${this._baseUrl}/movies/${movieId}`);
+    }
+
+    private _formToDto(form:MovieFormInterface):MovieInterface{
+        return {
+            id:form.id,
+            genres:form.genres,
+            runningTime:form.runningTime,
+            title:form.title,
+            year:form.year,
+            rating:{
+                averageRating:form.averageRating,
+                numVotes:form.numVotes
+            }
+        }
     }
 
 }

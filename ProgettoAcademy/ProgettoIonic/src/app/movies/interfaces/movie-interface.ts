@@ -30,6 +30,16 @@ export interface MovieInterface{
 
 }
 
+export interface MovieFormInterface {
+    id:string,
+    title:string,
+    genres:string,
+    year:number,
+    runningTime:number,
+    averageRating:number,
+    numVotes:number
+}
+
 export interface PaginationInterface{
     currentPage: number,
     pageSize: number,

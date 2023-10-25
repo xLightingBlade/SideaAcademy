@@ -32,6 +32,12 @@
             <ion-item>
                 <ion-input label="Duration(m)" formControlName="runningTime" type="number"></ion-input>
             </ion-item>
+            <ion-item>
+                <ion-input label="Average Rating" formControlName="averageRating" type="number"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-input label="Number of votes" formControlName="numVotes" type="number"></ion-input>
+            </ion-item>
         </ion-list>
         <ion-button type="submit" color="tertiary" fill="outline" [disabled]="!movieCreateForm.valid">Confirm creation</ion-button>
     </form>

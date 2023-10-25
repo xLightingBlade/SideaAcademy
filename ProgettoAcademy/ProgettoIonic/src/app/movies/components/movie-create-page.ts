@@ -25,6 +25,8 @@ export class MovieCreatePage{
             genres: new FormControl(""),
             year: new FormControl(""),
             runningTime: new FormControl(""),
+            averageRating: new FormControl(0, Validators.required),
+            numVotes:new FormControl(0, Validators.required)
         })
         this.movieCreateForm.valueChanges.subscribe((form:FormGroup) => console.log(form));
     }
