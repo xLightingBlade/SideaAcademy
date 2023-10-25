@@ -5,6 +5,7 @@ import { CelebrityInterface } from './interfaces/celebrity-interface';
 import { EmittedObject } from '../shared/interfaces/emitted-object-interface';
 import { CommonList } from '../shared/interfaces/common-list';
 import { ToastController } from '@ionic/angular';
+import { Actions } from '../shared/interfaces/actions-enum';
 
 @Component({
   selector: 'app-celebrities',
@@ -39,28 +40,36 @@ export class CelebritiesPage {
   public selectActionForCelebrity(emittedObject:EmittedObject){
     this.selectedCelebrityId = emittedObject.id;
     console.log("caught Celebrity id : "+this.selectedCelebrityId);
-    if(emittedObject.actionSelected == "detail") {
-      this.goToCelebrityDetail(this.selectedCelebrityId);
-    } else if(emittedObject.actionSelected == "edit") {
-      this.goToCelebrityEdit(this.selectedCelebrityId);
-    } else if(emittedObject.actionSelected == "delete") {
-      this._deleteMovie(this.selectedCelebrityId);
-    } else if(emittedObject.actionSelected == "create") {
-      this.goToCelebrityCreation();
+    switch(emittedObject.actionSelected) {
+      case Actions.Detail : {
+        this._goToCelebrityDetail(this.selectedCelebrityId);
+        break;
+      }
+      case Actions.Edit : {
+        this._goToCelebrityEdit(this.selectedCelebrityId);
+        break;
+      }
+      case Actions.Delete : {
+        this._deleteCelebrity(this.selectedCelebrityId);
+        break;
+      }
+      case Actions.Create : {
+        this._goToCelebrityCreation();
+      }
     }
   }
 
-  private goToCelebrityDetail(id:string) {
+  private _goToCelebrityDetail(id:string) {
     console.log("redirecting to Celebrity detail");
     this._celebritiesRouter.navigate(['detail',this.selectedCelebrityId], {relativeTo:this._activateRoute});
   }
 
-  private goToCelebrityEdit(id:string) {
+  private _goToCelebrityEdit(id:string) {
     console.log("redirecting to Celebrity editing");
     this._celebritiesRouter.navigate(['edit',this.selectedCelebrityId], {relativeTo:this._activateRoute});
   }
 
-  private _deleteMovie(id:string) {
+  private _deleteCelebrity(id:string) {
     this._celebritiesService.deleteCelebrity(id);
     this.presentToastAfterDelete();
   }
@@ -77,7 +86,7 @@ export class CelebritiesPage {
       await toast.present();
     }
 
-  private goToCelebrityCreation() {
+  private _goToCelebrityCreation() {
     console.log("Redirecting to movie creation");
     this._celebritiesRouter.navigate(['create'], {relativeTo:this._activateRoute});
   }

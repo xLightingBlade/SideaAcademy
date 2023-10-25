@@ -6,6 +6,7 @@ import { EmittedObject } from '../shared/interfaces/emitted-object-interface';
 import { CommonList } from '../shared/interfaces/common-list';
 import { Observable, Subject, Subscriber, from } from 'rxjs';
 import { ToastController } from '@ionic/angular';
+import { Actions } from '../shared/interfaces/actions-enum';
 
 @Component({
   selector: 'app-movies',
@@ -52,19 +53,19 @@ export class MoviesPage {
     this.selectedMovieId = emittedObject.id;
     console.log("caught movie id : "+this.selectedMovieId);
     switch(emittedObject.actionSelected) {
-      case 'detail' : {
+      case Actions.Detail : {
         this._goToMovieDetail(this.selectedMovieId);
         break;
       }
-      case 'edit' : {
+      case Actions.Edit : {
         this._goToMovieEdit(this.selectedMovieId);
         break;
       }
-      case 'delete' : {
+      case Actions.Delete : {
         this._deleteMovie(this.selectedMovieId);
         break;
       }
-      case 'create' : {
+      case Actions.Create : {
         this._goToMovieCreate();
       }
     }

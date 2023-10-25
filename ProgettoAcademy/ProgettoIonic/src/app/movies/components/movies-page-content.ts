@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { MovieInterface } from "../interfaces/movie-interface";
 import { EmittedObject } from "../../shared/interfaces/emitted-object-interface";
 import { CommonList } from "src/app/shared/interfaces/common-list";
+import { Actions } from "src/app/shared/interfaces/actions-enum";
 
 @Component({
     selector:'movies-content',
@@ -23,18 +24,18 @@ export class MoviesPageContent{
     }
     
     emitMovieIdForDetail(id:string){
-        this.clickedMovie.emit({id : id, actionSelected : "detail"});
+        this.clickedMovie.emit({id : id, actionSelected : Actions.Detail});
     }
 
     emitMovieIdForEdit(id:string){
-        this.clickedMovie.emit({id : id, actionSelected : "edit"});
+        this.clickedMovie.emit({id : id, actionSelected : Actions.Edit});
     }
 
     emitMovieIdForDelete(id:string){
-        this.clickedMovie.emit({id : id, actionSelected : "delete"});
+        this.clickedMovie.emit({id : id, actionSelected : Actions.Delete});
     }
 
     emitEventForCreation() {
-        this.clickedMovie.emit({id:"", actionSelected : "create"});
+        this.clickedMovie.emit({id:"", actionSelected : Actions.Create});
     }
 }
