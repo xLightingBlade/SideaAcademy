@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { CelebrityInterface } from "../interfaces/celebrity-interface";
 import { CelebrityService } from "../services/celebrity-service";
 import { Location } from "@angular/common";
@@ -18,7 +18,8 @@ export class CelebrityDetail{
     constructor(
         private _route:ActivatedRoute,
         private _celebrityService:CelebrityService,
-        private _location:Location){
+        private _location:Location,
+        private _router:Router){
 
         this._route.paramMap.subscribe( paramMap => {
             this.celebrityId = paramMap.get('id');
@@ -34,5 +35,9 @@ export class CelebrityDetail{
     
     navigateBack() {
         this._location.back();
+    }
+
+    navigateToMovie(movieId:string) {
+        this._router.navigate(['../../../movies','detail',movieId], {relativeTo: this._route});
     }
 }

@@ -7,8 +7,8 @@
     </ion-toolbar>
 </ion-header>-->
 <app-header [pageTitle]="pageTitle" (clickEvent)="navigateBack()"></app-header>
-<ion-content>
-    <ion-list id = "celebrity-detail" *ngIf="selectedCelebrity">
+<ion-content *ngIf="selectedCelebrity">
+    <ion-list id = "celebrity-detail">
         <ion-item>
             <ion-label>Celebrity Name</ion-label>
             <ion-label>{{selectedCelebrity.name}}</ion-label>
@@ -22,4 +22,18 @@
             <ion-label>{{selectedCelebrity.deathYear}}</ion-label>
         </ion-item>
     </ion-list>
+    <ion-accordion-group *ngIf="selectedCelebrity.movies">
+        <ion-accordion value="movies">
+            <ion-item slot="header" color="tertiary">
+                <ion-label>Appeared in</ion-label>
+            </ion-item>
+            <div *ngFor="let movieItem of selectedCelebrity.movies" slot="content">
+            <ion-list>
+                <ion-item button (click)="navigateToMovie(movieItem.movieId)">
+                    <ion-label>{{movieItem.movieTitle}}</ion-label>
+                </ion-item>
+            </ion-list>
+        </div>
+        </ion-accordion>
+    </ion-accordion-group>
 </ion-content>
