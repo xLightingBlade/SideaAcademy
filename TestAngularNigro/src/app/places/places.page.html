@@ -1,0 +1,9 @@
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Places</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <places-content [placeList]="placeList" (clickedPlace)="selectActionForPlace($event)"></places-content>
+</ion-content>

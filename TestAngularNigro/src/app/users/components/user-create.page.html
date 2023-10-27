@@ -1,0 +1,39 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Creating new user</ion-title>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/tabs/users"></ion-back-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <form *ngIf="userCreateForm" class="form" [formGroup]="userCreateForm" (ngSubmit)="submitForm()">
+        <ion-list>
+            <ion-item>
+                <ion-input label="Name" placeholder="Your name" formControlName="name" type="text"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-input label="Surname" placeholder="Your surname" formControlName="surname" type="text"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-input label="Birth Year" placeholder="Your birth year" formControlName="year" type="number"></ion-input>
+            </ion-item>
+            <ion-select formControlName="sex" label="Sex">
+                <ion-select-option *ngFor="let sex of sexTypes" value="{{sex.id}}">{{sex.label}}</ion-select-option>
+            </ion-select>
+            <ion-item>
+                <ion-input label="Residence" placeholder="Your residence" formControlName="residence" type="text"></ion-input>
+            </ion-item>
+            <ion-select formControlName="favoriteTypeHoliday" label="Favourite holiday type">
+                <ion-select-option *ngFor="let holiday of holidayTypes" value="{{holiday.id}}">{{holiday.label}}</ion-select-option>
+            </ion-select>
+            <ion-select formControlName="favoritePlace" label="favorite place">
+                <ion-select-option *ngFor="let item of placeNames" value="{{item.id}}">{{item.label}}</ion-select-option>
+            </ion-select>
+        </ion-list>
+        <ion-button type="submit" color="tertiary" fill="outline" [disabled]="!userCreateForm.valid">Confirm creation</ion-button>
+    </form>
+
+
+</ion-content>

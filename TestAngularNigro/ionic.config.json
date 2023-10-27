@@ -1,0 +1,7 @@
+{
+  "name": "TestAngularNigro",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

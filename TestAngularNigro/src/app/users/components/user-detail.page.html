@@ -1,0 +1,37 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>User details</ion-title>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/tabs/users"></ion-back-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="selectedUser">
+    <ion-list id = "user-detail">
+        <ion-item>
+            <ion-label>Name and Surname</ion-label>
+            <ion-label>{{selectedUser.name}}{{selectedUser.surname}}</ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>Sex</ion-label>
+            <ion-label>{{getStringSex(selectedUser.sex)}}</ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>Birth Year</ion-label>
+            <ion-label>{{selectedUser.year}}</ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>Residence</ion-label>
+            <ion-label>{{selectedUser.residence}}</ion-label>
+        </ion-item>
+        <ion-item *ngIf="selectedUser.favoriteTypeHoliday">
+            <ion-label>Favorite Holiday Type</ion-label>
+            <ion-label>{{getHolidayType(selectedUser.favoriteTypeHoliday)}}</ion-label>
+        </ion-item>
+        <ion-item *ngIf="selectedUser.favoritePlace">
+            <ion-label>Favorite Place</ion-label>
+            <ion-label>{{getFavoritePlace(selectedUser.favoritePlace)}}</ion-label>
+        </ion-item>
+    </ion-list>
+</ion-content>

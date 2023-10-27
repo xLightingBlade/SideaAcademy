@@ -1,0 +1,36 @@
+<ion-content [fullscreen]="true" *ngIf="selectedPlace">
+        <ion-header>
+            <ion-toolbar>
+                <ion-title>Updating {{selectedPlace.city}}</ion-title>
+                <ion-buttons slot="start">
+                    <ion-back-button defaultHref="/tabs/places"></ion-back-button>
+                </ion-buttons>
+            </ion-toolbar>
+        </ion-header>
+
+    <form *ngIf="placeEditForm" class="form" [formGroup]="placeEditForm" (ngSubmit)="submitForm()">
+        <ion-list>
+            <ion-item>
+                <ion-input label="country" formControlName="country" type="text"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-input label="city" formControlName="city" type="text"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-input label="temperatureMin" formControlName="temperatureMin" type="number"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-input label="temperatureMax" formControlName="temperatureMax" type="number"></ion-input>
+            </ion-item>
+            <ion-select formControlName="favoriteSeason" label="favoriteSeason">
+                <ion-select-option *ngFor="let favoriteSeason of seasonTypes" value="{{favoriteSeason.id}}">{{favoriteSeason.label}}</ion-select-option>
+            </ion-select>
+            <ion-select formControlName="typeHoliday" label="Favourite holiday type">
+                <ion-select-option *ngFor="let holiday of holidayTypes" value="{{holiday.id}}">{{holiday.label}}</ion-select-option>
+            </ion-select>
+        </ion-list>
+        <ion-button type="submit" color="tertiary" fill="outline" [disabled]="!placeEditForm.valid">Confirm Update</ion-button>
+    </form>
+
+
+</ion-content>

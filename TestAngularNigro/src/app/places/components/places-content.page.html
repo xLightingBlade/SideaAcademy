@@ -1,0 +1,31 @@
+<ion-header [translucent]="true">
+    <ion-toolbar>
+      <ion-title>
+        Places
+      </ion-title>
+      <ion-button (click) ="emitEventForCreation()" slot="end" fill="outline" color="tertiary">
+        <ion-icon slot="icon-only" name="add-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-toolbar>
+</ion-header>
+  
+  <ion-content>
+      <ion-list id = "places-list">
+          <ion-list-header>
+              <ion-label>Places list</ion-label>
+          </ion-list-header>
+          <ion-item-sliding *ngFor="let place of placeList">
+            <ion-item-options side="start">
+                <ion-item-option (click)="emitPlaceIdForEdit(place.id)" color="success">Edit</ion-item-option>
+              </ion-item-options>
+          
+              <ion-item button (click)="emitPlaceIdForDetail(place.id)">
+                <ion-label>{{place.name}}</ion-label>
+              </ion-item>
+          
+              <ion-item-options side="end">
+                <ion-item-option (click)="emitPlaceIdForDelete(place.id)" color="danger">Delete</ion-item-option>
+              </ion-item-options>
+          </ion-item-sliding>
+      </ion-list>
+  </ion-content>

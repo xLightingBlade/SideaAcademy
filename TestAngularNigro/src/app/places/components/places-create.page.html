@@ -1,0 +1,36 @@
+<ion-content [fullscreen]="true">
+    <ion-header>
+        <ion-toolbar>
+            <ion-title>Creating new place</ion-title>
+            <ion-buttons slot="start">
+                <ion-back-button defaultHref="/tabs/places"></ion-back-button>
+            </ion-buttons>
+        </ion-toolbar>
+    </ion-header>
+
+    <form *ngIf="placesCreateForm" class="form" [formGroup]="placesCreateForm" (ngSubmit)="submitForm()">
+        <ion-list>
+            <ion-item>
+                <ion-input label="country" placeholder="Country" formControlName="country" type="text"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-input label="city" placeholder="city" formControlName="city" type="text"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-input label="temperatureMin" placeholder="temperatureMin" formControlName="temperatureMin" type="number"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-input label="temperatureMax" placeholder="temperatureMax" formControlName="temperatureMax" type="number"></ion-input>
+            </ion-item>
+            <ion-select formControlName="favoriteSeason" label="favoriteSeason">
+                <ion-select-option *ngFor="let favoriteSeason of seasonTypes" value="{{favoriteSeason.id}}">{{favoriteSeason.label}}</ion-select-option>
+            </ion-select>
+            <ion-select formControlName="typeHoliday" label="Holiday type">
+                <ion-select-option *ngFor="let holiday of holidayTypes" value="{{holiday.id}}">{{holiday.label}}</ion-select-option>
+            </ion-select>
+        </ion-list>
+        <ion-button type="submit" color="tertiary" fill="outline" [disabled]="!placesCreateForm.valid">Confirm creation</ion-button>
+    </form>
+
+
+</ion-content>

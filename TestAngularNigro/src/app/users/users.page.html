@@ -1,0 +1,9 @@
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Users</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <users-content [userList]="userList" (clickedUser)="selectActionForUser($event)"></users-content>
+</ion-content>
