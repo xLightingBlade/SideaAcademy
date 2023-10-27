@@ -4,6 +4,7 @@ import { PlacesPage } from './places.page';
 import { PlacesCreatePage } from './components/places-create.page';
 import { PlacesEditPage } from './components/places-edit.page';
 import { PlaceDetailPage } from './components/places-detail.page';
+import { CanEnterPlaceGuard } from '../can-enter-place.guard';
 
 const routes: Routes = [
   {
@@ -12,6 +13,7 @@ const routes: Routes = [
   },
   {
     path:'detail/:id',
+    canActivate:[CanEnterPlaceGuard],
     component:PlaceDetailPage,
   },
   {
@@ -26,6 +28,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers:[CanEnterPlaceGuard],
 })
 export class PlacesPageRoutingModule {}

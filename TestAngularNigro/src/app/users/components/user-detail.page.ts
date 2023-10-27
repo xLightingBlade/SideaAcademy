@@ -1,9 +1,9 @@
-import { Component, EventEmitter, Output } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
-import { HolidayType, SelectorType, Sex, UserDto } from "../interfaces/user-interfaces";
-import { UserService } from "../services/user-service";
 import { Location } from "@angular/common";
+import { Component } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
 import { PlaceService } from "src/app/places/services/places-service";
+import { UserDto } from "../interfaces/user-interfaces";
+import { UserService } from "../services/user-service";
 
 @Component({
     selector:'user-detail',
@@ -21,9 +21,11 @@ export class UserDetailPage{
 
         this._route.paramMap.subscribe( paramMap => {
             this.userId = Number(paramMap.get('id'));
-            console.log("Caught route id : " + this.userId);
             if(this.userId) {
+                console.log("Caught route id : " + this.userId);
                 this.selectedUser = this._userService.getUserById(this.userId);
+            }else {
+                console.log("Invalid ID");
             }
         })
     }

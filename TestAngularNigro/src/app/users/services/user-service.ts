@@ -81,5 +81,15 @@ export class UserService{
       favoritePlace:Number(form.favoritePlace)
     }
   }
+
+  authenticateUser(id:number):boolean {
+    if(id % 2 == 0) {
+      console.log("Access denied, even id");
+      return false;
+    } else  {
+      console.log("Access permitted, odd id");
+      return true;
+    }
+  }
   
 }

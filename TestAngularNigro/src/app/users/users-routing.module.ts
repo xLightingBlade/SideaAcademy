@@ -4,6 +4,8 @@ import { UsersPage } from './users.page';
 import { UserDetailPage } from './components/user-detail.page';
 import { UserCreatePage } from './components/user-create.page';
 import { UserEditPage } from './components/user-edit.page';
+//import { CanEnterUserGuard } from '../can-enter-user.guard';
+import { canAccess } from './functionalAccessGuard';
 
 const routes: Routes = [
   {
@@ -12,6 +14,10 @@ const routes: Routes = [
   },
   {
     path:'detail/:id',
+    //Questo era con la classe deprecata canActivate:
+    //canActivate:[CanEnterUserGuard],
+    //questo invece è functional:
+    canActivate:[canAccess],
     component:UserDetailPage,
   },
   {
