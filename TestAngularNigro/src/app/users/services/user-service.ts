@@ -1,36 +1,33 @@
-import { Injectable } from "@angular/core";
-import { UserDto, UserForm } from "../interfaces/user-interfaces";
-import { Subject } from "rxjs";
-import { Sex, HolidayType } from "../interfaces/user-interfaces";
+import { Injectable } from '@angular/core';
+import { UserDto, UserForm } from '../interfaces/user-interfaces';
+import { Subject } from 'rxjs';
+import { Sex, HolidayType } from '../interfaces/user-interfaces';
 
 @Injectable({
-    providedIn:'root',
+  providedIn: 'root',
 })
-export class UserService{
-  
-    private _users: UserDto[] =[
-        {
-            id:1,
-            name:"NomeUno",
-            surname:"CognomeUno",
-            sex:0,
-            year:1990,
-            residence:"Carapelle",
-            favoriteTypeHoliday:1,
-        },
-        {
-            id:2,
-            name:"NomeDue",
-            surname:"CognomeDue",
-            sex:1,
-            year:1999,
-            residence:"Foggia",
-            favoriteTypeHoliday:2,
-        }
+export class UserService {
+  private _users: UserDto[] = [
+    {
+      id: 1,
+      name: 'NomeUno',
+      surname: 'CognomeUno',
+      sex: 0,
+      year: 1990,
+      residence: 'Carapelle',
+      favoriteTypeHoliday: 1,
+    },
+    {
+      id: 2,
+      name: 'NomeDue',
+      surname: 'CognomeDue',
+      sex: 1,
+      year: 1999,
+      residence: 'Foggia',
+      favoriteTypeHoliday: 2,
+    },
+  ];
 
-    ]
-
-      
   _usersLength = this._users.length;
 
   _users$ = new Subject<UserDto[]>();
@@ -40,13 +37,15 @@ export class UserService{
     this._users$.next(this._users);
   }
 
-  getUserById(id:number): UserDto | undefined{
-    return this._users.find((user:UserDto) => user.id === id);
+  getUserById(id: number): UserDto | undefined {
+    return this._users.find((user: UserDto) => user.id === id);
   }
 
   updateUser(userForm: UserForm): void {
     const newUser = this.formToDto(userForm);
-    const userToUpdateIdx = this._users.findIndex((user:UserDto) => user.id === newUser.id);
+    const userToUpdateIdx = this._users.findIndex(
+      (user: UserDto) => user.id === newUser.id
+    );
     if (userToUpdateIdx !== -1) {
       this._users[userToUpdateIdx] = newUser;
     }
@@ -64,32 +63,21 @@ export class UserService{
   addUser(userForm: UserForm) {
     const newUser = this.formToDto(userForm);
     this._usersLength += 1;
-    newUser.id = (this._usersLength)
+    newUser.id = this._usersLength;
     this._users.push(newUser);
     this._users$.next(this._users);
   }
 
-  formToDto(form:UserForm):UserDto {
+  formToDto(form: UserForm): UserDto {
     return {
-      id:form.id,
-      name:form.name,
-      surname:form.surname,
-      sex:Number(form.sex),
-      year:form.year,
-      residence:form.residence,
-      favoriteTypeHoliday:Number(form.favoriteTypeHoliday),
-      favoritePlace:Number(form.favoritePlace)
-    }
+      id: form.id,
+      name: form.name,
+      surname: form.surname,
+      sex: Number(form.sex),
+      year: form.year,
+      residence: form.residence,
+      favoriteTypeHoliday: Number(form.favoriteTypeHoliday),
+      favoritePlace: Number(form.favoritePlace),
+    };
   }
-
-  authenticateUser(id:number):boolean {
-    if(id % 2 == 0) {
-      console.log("Access denied, even id");
-      return false;
-    } else  {
-      console.log("Access permitted, odd id");
-      return true;
-    }
-  }
-  
 }

@@ -20,6 +20,12 @@ import { UserEditPage } from './components/user-edit.page';
     RouterModule,
     ReactiveFormsModule,
   ],
-  declarations: [UsersPage,UsersContentPage, UserDetailPage, UserCreatePage, UserEditPage]
+  declarations: [
+    UsersPage,
+    UsersContentPage,
+    UserDetailPage,
+    UserCreatePage,
+    UserEditPage,
+  ],
 })
 export class UsersPageModule {}

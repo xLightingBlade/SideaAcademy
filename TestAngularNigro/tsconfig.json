@@ -22,6 +22,10 @@
       "es2018", 
       "dom"
     ],
+    "paths": {
+      "@itemInterface":["src/app/shared/interfaces/itemInterface"],
+      "@userResolvers":["src/app/users/resolver/user-detail.resolver.ts"],
+    },
     "useDefineForClassFields": false
   },
   "angularCompilerOptions": {

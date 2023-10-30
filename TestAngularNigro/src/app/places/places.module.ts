@@ -21,6 +21,12 @@ import { PlaceDetailPage } from './components/places-detail.page';
     ReactiveFormsModule,
     RouterModule,
   ],
-  declarations: [PlacesPage, PlacesContentPage, PlacesEditPage, PlacesCreatePage, PlaceDetailPage]
+  declarations: [
+    PlacesPage,
+    PlacesContentPage,
+    PlacesEditPage,
+    PlacesCreatePage,
+    PlaceDetailPage,
+  ],
 })
 export class PlacesPageModule {}

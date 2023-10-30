@@ -1,5 +1,5 @@
-export interface ItemInterface{
-    id:number,
-    name:string,
-    otherValue?:number
+export interface ItemInterface {
+  id: number;
+  name: string;
+  otherValue?: number;
 }

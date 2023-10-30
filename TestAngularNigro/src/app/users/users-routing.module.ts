@@ -5,7 +5,8 @@ import { UserDetailPage } from './components/user-detail.page';
 import { UserCreatePage } from './components/user-create.page';
 import { UserEditPage } from './components/user-edit.page';
 //import { CanEnterUserGuard } from '../can-enter-user.guard';
-import { canAccess } from './functionalAccessGuard';
+import { canAccess, idIsNan } from './guards/_user-functional.guard';
+import { userDetailResolver } from '@userResolvers';
 
 const routes: Routes = [
   {
@@ -17,7 +18,8 @@ const routes: Routes = [
     //Questo era con la classe deprecata canActivate:
     //canActivate:[CanEnterUserGuard],
     //questo invece è functional:
-    canActivate:[canAccess],
+    canActivate:[idIsNan ,canAccess],
+    resolve: {user: userDetailResolver},   //definito un oggetto Data, fatto di coppie chiave valore
     component:UserDetailPage,
   },
   {
@@ -27,7 +29,7 @@ const routes: Routes = [
   {
     path:'edit/:id',
     component:UserEditPage,
-  }
+  },
 ];
 
 @NgModule({

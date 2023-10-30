@@ -12,23 +12,23 @@ const routes: Routes = [
     component: PlacesPage,
   },
   {
-    path:'detail/:id',
-    canActivate:[CanEnterPlaceGuard],
-    component:PlaceDetailPage,
+    path: 'detail/:id',
+    canActivate: [CanEnterPlaceGuard],
+    component: PlaceDetailPage,
   },
   {
-    path:'create',
-    component:PlacesCreatePage,
+    path: 'create',
+    component: PlacesCreatePage,
   },
   {
-    path:'edit/:id',
-    component:PlacesEditPage,
-  }
+    path: 'edit/:id',
+    component: PlacesEditPage,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
-  providers:[CanEnterPlaceGuard],
+  providers: [CanEnterPlaceGuard],
 })
 export class PlacesPageRoutingModule {}
