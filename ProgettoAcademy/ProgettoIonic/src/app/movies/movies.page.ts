@@ -4,7 +4,7 @@ import { MovieService } from './services/movie-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EmittedObject } from '../shared/interfaces/emitted-object-interface';
 import { CommonList } from '../shared/interfaces/common-list';
-import { map } from 'rxjs';
+import { filter, map } from 'rxjs';
 import { ToastController } from '@ionic/angular';
 import { Actions } from '../shared/interfaces/actions-enum';
 import { RangeValue } from '@ionic/core';
@@ -15,7 +15,8 @@ import { RangeValue } from '@ionic/core';
   styleUrls: ['movies.page.scss'],
 })
 export class MoviesPage {
-  @Output() movieList: CommonList[] = [];
+  startingMovieList : CommonList[] = [];
+  @Output() currentMovieList: CommonList[] = [];
 
   selectedMovieRatingMinimum: number = 0;
   selectedMovieId: string = '';
@@ -34,9 +35,8 @@ export class MoviesPage {
   }
 
   setMovieRating(rating:RangeValue) {
-    this.selectedMovieRatingMinimum = Number(rating) / 10;
-    console.log(this.selectedMovieRatingMinimum)
-    this._refreshMovieList();
+    const decimalRating = Number(rating)/10
+    this.currentMovieList = this.startingMovieList.filter((movie) => movie.rating! * 10 >= decimalRating);
   }
 
   private _refreshMovieList(): void {
@@ -62,7 +62,8 @@ export class MoviesPage {
         })
       )
       .subscribe((moviesListItem) => {
-        this.movieList = moviesListItem;
+        this.startingMovieList = moviesListItem;
+        this.currentMovieList = this.startingMovieList;
       });
     /*
     this._movieService.getMovieList().subscribe((movies: MovieInterface[]) => {
