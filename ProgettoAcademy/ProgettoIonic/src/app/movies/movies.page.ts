@@ -4,9 +4,10 @@ import { MovieService } from './services/movie-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EmittedObject } from '../shared/interfaces/emitted-object-interface';
 import { CommonList } from '../shared/interfaces/common-list';
-import { Observable, Subject, Subscriber, filter, from, map } from 'rxjs';
+import { map } from 'rxjs';
 import { ToastController } from '@ionic/angular';
 import { Actions } from '../shared/interfaces/actions-enum';
+import { RangeValue } from '@ionic/core';
 
 @Component({
   selector: 'app-movies',
@@ -15,6 +16,8 @@ import { Actions } from '../shared/interfaces/actions-enum';
 })
 export class MoviesPage {
   @Output() movieList: CommonList[] = [];
+
+  selectedMovieRatingMinimum: number = 0;
   selectedMovieId: string = '';
 
   constructor(
@@ -30,25 +33,36 @@ export class MoviesPage {
     this._refreshMovieList();
   }
 
-  //Messo qua, per esercizio, un filtro sul minimo avgRating che deve avere un film
+  setMovieRating(rating:RangeValue) {
+    this.selectedMovieRatingMinimum = Number(rating) / 10;
+    console.log(this.selectedMovieRatingMinimum)
+    this._refreshMovieList();
+  }
+
   private _refreshMovieList(): void {
     this._movieService
       .getMovieList()
       .pipe(
+        //filter by minimum avg rating
         map((movies: MovieInterface[]) =>
           movies.filter(
-            (movie: MovieInterface) => movie.rating.averageRating >= 6
+            //agganciare questo valore di filtraggio al valore scatenato dallo slider nella lista dei film
+            (movie: MovieInterface) => movie.rating.averageRating >= this.selectedMovieRatingMinimum
           )
-        )
+        ),
+        //remap into commonList
+        map((movies) => {
+          return movies.map(({ id, title, year, rating }) => {
+            return {
+              id,
+              name: title + '(' + year + ')',
+              rating: rating.averageRating / 10,
+            };
+          });
+        })
       )
-      .subscribe((movies: MovieInterface[]) => {
-        this.movieList = movies.map((movie: MovieInterface) => {
-          return {
-            id: movie.id,
-            name: movie.title + "(" + movie.year + ")" + " (" + movie.rating.averageRating + ")",
-            rating:(movie.rating.averageRating - 0) / (10)
-          };
-        });
+      .subscribe((moviesListItem) => {
+        this.movieList = moviesListItem;
       });
     /*
     this._movieService.getMovieList().subscribe((movies: MovieInterface[]) => {

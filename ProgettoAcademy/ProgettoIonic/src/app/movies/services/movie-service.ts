@@ -20,7 +20,7 @@ export class MovieService {
   getMovieList(): Observable<MovieInterface[]> {
     return this._http
       .get<AllMoviesDtoInterface>(
-        `${this._baseUrl}/movies?page=0&size=25&order_by=id`
+        `${this._baseUrl}/movies?page=0&size=50&order_by=id`
       )
       .pipe(
         map((item: AllMoviesDtoInterface) => {
