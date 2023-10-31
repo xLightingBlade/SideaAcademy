@@ -26,10 +26,6 @@ export class MoviesPageContent{
         return value/10;
     }
 
-    getFormattedRating(rating:number) {
-        return Number(rating * 10).toFixed(1);
-    }
-
     clicked(name:string){
         console.log(name + "clicked");
     }
