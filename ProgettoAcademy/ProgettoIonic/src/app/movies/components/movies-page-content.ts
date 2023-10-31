@@ -27,7 +27,7 @@ export class MoviesPageContent{
     }
 
     getFormattedRating(rating:number) {
-        return Number(rating! * 10).toFixed(1);
+        return Number(rating * 10).toFixed(1);
     }
 
     clicked(name:string){

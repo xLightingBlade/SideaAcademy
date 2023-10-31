@@ -4,7 +4,7 @@ import { MovieService } from './services/movie-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EmittedObject } from '../shared/interfaces/emitted-object-interface';
 import { CommonList } from '../shared/interfaces/common-list';
-import { filter, map } from 'rxjs';
+import { BehaviorSubject, filter, map } from 'rxjs';
 import { ToastController } from '@ionic/angular';
 import { Actions } from '../shared/interfaces/actions-enum';
 import { RangeValue } from '@ionic/core';
@@ -15,11 +15,16 @@ import { RangeValue } from '@ionic/core';
   styleUrls: ['movies.page.scss'],
 })
 export class MoviesPage {
-  startingMovieList : CommonList[] = [];
+  startingMovieList: CommonList[] = [];
   @Output() currentMovieList: CommonList[] = [];
-
-  selectedMovieRatingMinimum: number = 0;
   selectedMovieId: string = '';
+  /* Siccome il rating non è un query parameter, non ho mica bisogno di chiamare il backend ogni volta che cambio
+    il mio rating minimo desiderato. Basta che filtro sulla lista dei film che ho preso con la prima chiamata.
+    Mi creo quindi una lista iniziale e una corrente, inizializzata a quella iniziale e poi modificata di volta in volta
+    Per fare programmazione reattiva, il rating diventa un subject, inizializzato a zero. Ogni volta che cambio il valore del
+    rating, emetto il nuovo valore. Il componente è in ascolto dei cambiamenti del rating */
+  selectedMovieRatingMinimum: number = 0;
+  selectedRating$ = new BehaviorSubject(this.selectedMovieRatingMinimum);
 
   constructor(
     private _movieService: MovieService,
@@ -27,16 +32,24 @@ export class MoviesPage {
     private _activateRoute: ActivatedRoute,
     private _toastController: ToastController
   ) {
-    this._refreshMovieList();
+    this.selectedRating$.subscribe((selectedDecimalRating) =>
+      this.updateCurrentMovieList(selectedDecimalRating)
+    );
   }
 
   ionViewWillEnter() {
     this._refreshMovieList();
   }
 
-  setMovieRating(rating:RangeValue) {
-    const decimalRating = Number(rating)/10
-    this.currentMovieList = this.startingMovieList.filter((movie) => movie.rating! * 10 >= decimalRating);
+  updateCurrentMovieList(selectedDecimalRating: number): void {
+    this.currentMovieList = this.startingMovieList.filter(
+      (movie) => (movie.rating || 0) >= selectedDecimalRating
+    );
+  }
+
+  setMovieRating(rating: RangeValue) {
+    const decimalRating = Number(rating) / 100;
+    this.selectedRating$.next(decimalRating);
   }
 
   private _refreshMovieList(): void {
@@ -47,7 +60,8 @@ export class MoviesPage {
         map((movies: MovieInterface[]) =>
           movies.filter(
             //agganciare questo valore di filtraggio al valore scatenato dallo slider nella lista dei film
-            (movie: MovieInterface) => movie.rating.averageRating >= this.selectedMovieRatingMinimum
+            (movie: MovieInterface) =>
+              movie.rating.averageRating >= this.selectedMovieRatingMinimum
           )
         ),
         //remap into commonList
