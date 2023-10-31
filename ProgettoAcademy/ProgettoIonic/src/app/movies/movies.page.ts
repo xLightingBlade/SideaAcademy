@@ -4,7 +4,7 @@ import { MovieService } from './services/movie-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EmittedObject } from '../shared/interfaces/emitted-object-interface';
 import { CommonList } from '../shared/interfaces/common-list';
-import { BehaviorSubject, combineLatest, filter, map } from 'rxjs';
+import { BehaviorSubject, combineLatest, filter, map, pipe, switchMap } from 'rxjs';
 import { ToastController } from '@ionic/angular';
 import { Actions } from '../shared/interfaces/actions-enum';
 import { RangeValue } from '@ionic/core';
@@ -38,7 +38,7 @@ export class MoviesPage {
   }
 
   ionViewWillEnter() {
-    combineLatest({
+    /*combineLatest({
       movieList: this._movieService.getMovieList(),
       rating: this.selectedRating$,
     }).subscribe(({ movieList, rating }) => {
@@ -51,6 +51,24 @@ export class MoviesPage {
       });
       this.updateCurrentMovieList(rating);
     });
+    
+    //Alla fine è un'altra soluzione allo stesso problema.
+    /*Qui con lo switchmap passo dall'observable di MovieInterface[] ad un observable di numeri(i rating)
+    Quando cambia il rating, si rientra nella pipe*/
+    
+    this._movieService.getMovieList().pipe(switchMap((movies:MovieInterface[]) => {
+      this.startingMovieList = movies.map((movie) => {
+        return {
+          id:movie.id,
+          name:movie.title,
+          rating:movie.rating.averageRating/10,
+        };
+      });
+      return this.selectedRating$;
+    })
+    ).subscribe((rating) => {
+      this.updateCurrentMovieList(rating);
+    })
   }
 
   updateCurrentMovieList(selectedDecimalRating: number): void {
