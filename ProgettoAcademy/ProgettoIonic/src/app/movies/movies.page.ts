@@ -4,7 +4,7 @@ import { MovieService } from './services/movie-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EmittedObject } from '../shared/interfaces/emitted-object-interface';
 import { CommonList } from '../shared/interfaces/common-list';
-import { BehaviorSubject, Subject, switchMap } from 'rxjs';
+import { BehaviorSubject, Subject, map, switchMap } from 'rxjs';
 import { ToastController } from '@ionic/angular';
 import { Actions } from '../shared/interfaces/actions-enum';
 import { RangeValue } from '@ionic/core';
@@ -25,7 +25,8 @@ export class MoviesPage {
     rating, emetto il nuovo valore. Il componente è in ascolto dei cambiamenti del rating */
   selectedMovieRatingMinimum: number = 0;
   selectedRating$ = new BehaviorSubject(this.selectedMovieRatingMinimum);
-  searchResultList : CommonList[] = [];
+  selectedTitle$ = new BehaviorSubject('');
+  searchResultList: CommonList[] = [];
 
   constructor(
     private _movieService: MovieService,
@@ -56,25 +57,30 @@ export class MoviesPage {
     //Alla fine è un'altra soluzione allo stesso problema.
     /*Qui con lo switchmap passo dall'observable di MovieInterface[] ad un observable di numeri(i rating)
     Quando cambia il rating, si rientra nella pipe*/
-    
-    this._movieService.getMovieList().pipe(switchMap((movies:MovieInterface[]) => {
-      this.startingMovieList = movies.map((movie) => {
-        return {
-          id:movie.id,
-          name:movie.title,
-          rating:movie.rating.averageRating/10,
-        };
+
+    this.selectedTitle$
+      .pipe(
+        switchMap((title) => {
+          return this._movieService.getMoviesByTitle(title);
+        }),
+        switchMap((movies: MovieInterface[]) => {
+          this.startingMovieList = movies.map((movie) => {
+            return {
+              id: movie.id,
+              name: movie.title,
+              rating: movie.rating.averageRating / 10,
+            };
+          });
+          return this.selectedRating$;
+        })
+      )
+      .subscribe((rating) => {
+        this.updateRatingFilteredMovieList(rating);
       });
-      this.searchResultList = this.startingMovieList;
-      return this.selectedRating$;
-    })
-    ).subscribe((rating) => {
-      this.updateRatingFilteredMovieList(rating);
-    })
   }
 
   updateRatingFilteredMovieList(selectedDecimalRating: number): void {
-    this.currentMovieList = this.searchResultList.filter(
+    this.currentMovieList = this.startingMovieList.filter(
       (movie) => (movie.rating || 0) >= selectedDecimalRating
     );
   }
@@ -84,18 +90,9 @@ export class MoviesPage {
     this.selectedRating$.next(decimalRating);
   }
 
-  updateTitleFilteredMovieList(event:Event) {
-    const title = (event.target as HTMLInputElement).value
-    this._movieService.getMoviesByTitle(title).subscribe((movieList:MovieInterface[]) => {
-      this.searchResultList = movieList.map((movie) => {
-        return {
-          id:movie.id,
-          name:movie.title,
-          rating:movie.rating.averageRating/10,
-        }
-      })
-      this.currentMovieList = this.searchResultList;
-    })
+  setSearchTitle(title: string) {
+    console.log(title);
+    this.selectedTitle$.next(title);
   }
 
   public selectActionForMovie(emittedObject: EmittedObject) {

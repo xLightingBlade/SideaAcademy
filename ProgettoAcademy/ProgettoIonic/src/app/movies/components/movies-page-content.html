@@ -16,10 +16,11 @@
     [showBackButton]="false"
     (clickEvent)="emitEventForCreation()"
   ></app-header>
-  <ion-searchbar
-    [debounce]="500"
-    (ionInput)="emitSearchedTitle($event)"
-  ></ion-searchbar>
+  <form [formGroup]="titleSearchForm">
+    <ion-item>
+      <ion-input label="Search" formControlName="title" type="text"></ion-input>
+    </ion-item>
+  </form>
 
   <ion-range
     labelPlacement="fixed"
