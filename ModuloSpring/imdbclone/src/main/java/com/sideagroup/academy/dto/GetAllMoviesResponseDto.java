@@ -11,11 +11,11 @@ import java.util.List;
 public class GetAllMoviesResponseDto {
 
     private PaginationDto pagination;
-    private List<MovieDto> movies;
+    private List<MovieDto> data;
 
     public GetAllMoviesResponseDto() {
         pagination = new PaginationDto();
-        movies = new ArrayList<>();
+        data = new ArrayList<>();
     }
 
 }

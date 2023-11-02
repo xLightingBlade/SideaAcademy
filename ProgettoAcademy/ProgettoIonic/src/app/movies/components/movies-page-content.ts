@@ -29,7 +29,8 @@ export class MoviesPageContent{
         this.titleSearchForm = new FormGroup({
             title:new FormControl()
         });
-        this.titleSearchForm.get('title')?.valueChanges.pipe(debounceTime(500)).subscribe((title)=> this.movieTitleValue.emit(title));
+        //this.titleSearchForm.get('title')?.valueChanges.pipe(debounceTime(500)).subscribe((title)=> this.movieTitleValue.emit(title));
+        //sostituito da chiamata direttamente in movie page facendo uso di viewchild
     }
     
     pinFormatter(value:number) {

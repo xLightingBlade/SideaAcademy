@@ -17,9 +17,7 @@
     (clickEvent)="emitEventForCreation()"
   ></app-header>
   <form [formGroup]="titleSearchForm">
-    <ion-item>
-      <ion-input label="Search" formControlName="title" type="text"></ion-input>
-    </ion-item>
+    <ion-searchbar formControlName="title" type="text"></ion-searchbar>
   </form>
 
   <ion-range
