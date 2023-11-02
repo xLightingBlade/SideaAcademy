@@ -4,7 +4,7 @@ import { MovieService } from './services/movie-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EmittedObject } from '../shared/interfaces/emitted-object-interface';
 import { CommonList } from '../shared/interfaces/common-list';
-import { BehaviorSubject, combineLatest, filter, map, pipe, switchMap } from 'rxjs';
+import { BehaviorSubject, Subject, switchMap } from 'rxjs';
 import { ToastController } from '@ionic/angular';
 import { Actions } from '../shared/interfaces/actions-enum';
 import { RangeValue } from '@ionic/core';
@@ -25,6 +25,7 @@ export class MoviesPage {
     rating, emetto il nuovo valore. Il componente è in ascolto dei cambiamenti del rating */
   selectedMovieRatingMinimum: number = 0;
   selectedRating$ = new BehaviorSubject(this.selectedMovieRatingMinimum);
+  searchResultList : CommonList[] = [];
 
   constructor(
     private _movieService: MovieService,
@@ -33,7 +34,7 @@ export class MoviesPage {
     private _toastController: ToastController
   ) {
     this.selectedRating$.subscribe((selectedDecimalRating) =>
-      this.updateCurrentMovieList(selectedDecimalRating)
+      this.updateRatingFilteredMovieList(selectedDecimalRating)
     );
   }
 
@@ -64,22 +65,37 @@ export class MoviesPage {
           rating:movie.rating.averageRating/10,
         };
       });
+      this.searchResultList = this.startingMovieList;
       return this.selectedRating$;
     })
     ).subscribe((rating) => {
-      this.updateCurrentMovieList(rating);
+      this.updateRatingFilteredMovieList(rating);
     })
   }
 
-  updateCurrentMovieList(selectedDecimalRating: number): void {
-    this.currentMovieList = this.startingMovieList.filter(
+  updateRatingFilteredMovieList(selectedDecimalRating: number): void {
+    this.currentMovieList = this.searchResultList.filter(
       (movie) => (movie.rating || 0) >= selectedDecimalRating
     );
   }
 
-  setMovieRating(rating: RangeValue) {
+  setMovieSearchRating(rating: RangeValue) {
     const decimalRating = Number(rating) / 100;
     this.selectedRating$.next(decimalRating);
+  }
+
+  updateTitleFilteredMovieList(event:Event) {
+    const title = (event.target as HTMLInputElement).value
+    this._movieService.getMoviesByTitle(title).subscribe((movieList:MovieInterface[]) => {
+      this.searchResultList = movieList.map((movie) => {
+        return {
+          id:movie.id,
+          name:movie.title,
+          rating:movie.rating.averageRating/10,
+        }
+      })
+      this.currentMovieList = this.searchResultList;
+    })
   }
 
   public selectActionForMovie(emittedObject: EmittedObject) {

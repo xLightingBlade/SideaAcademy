@@ -16,6 +16,10 @@
     [showBackButton]="false"
     (clickEvent)="emitEventForCreation()"
   ></app-header>
+  <ion-searchbar
+    [debounce]="500"
+    (ionInput)="emitSearchedTitle($event)"
+  ></ion-searchbar>
 
   <ion-range
     labelPlacement="fixed"
@@ -29,7 +33,9 @@
     <ion-list-header>
       <ion-label>Movie list</ion-label>
     </ion-list-header>
-    <ion-item-sliding *ngFor="let movie of movieList | arrayOrderByPipe:'rating' : 'desc'">
+    <ion-item-sliding
+      *ngFor="let movie of movieList | arrayOrderByPipe:'rating' : 'desc'"
+    >
       <ion-item-options side="end">
         <ion-item-option (click)="emitMovieIdForEdit(movie.id)">
           <ion-icon slot="top" name="create"></ion-icon>

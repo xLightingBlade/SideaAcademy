@@ -35,6 +35,13 @@ export class MovieService {
     );
   }
 
+  getMoviesByTitle(selectedTitle:string):Observable<MovieInterface[]> {
+    return this._http.get<AllMoviesDtoInterface>(`${this._baseUrl}/movies?title=${selectedTitle}&page=0&size=50`
+    ).pipe(map((item:AllMoviesDtoInterface) => {
+      return item.movies;
+    }))
+  }
+
   createMovie(movieForm: MovieFormInterface): Observable<MovieInterface> {
     const movie = this._formToDto(movieForm);
     return this._http.post<MovieInterface>(`${this._baseUrl}/movies`, movie);

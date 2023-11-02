@@ -18,7 +18,7 @@ export class MoviesPageContent{
     //valutare di fare tre eventemitter diversi
     @Output() clickedMovie = new EventEmitter<EmittedObject>;
     @Output() movieRatingSliderValue = new EventEmitter<RangeValue>
-    
+    @Output() movieTitleValue = new EventEmitter<Event>
 
     constructor(){}
     
@@ -48,5 +48,8 @@ export class MoviesPageContent{
     movieRatingSliderChange(e:Event) {
         console.log((e as RangeCustomEvent).detail.value)
         this.movieRatingSliderValue.emit((e as RangeCustomEvent).detail.value);
+    }
+    emitSearchedTitle(event:Event) {
+        this.movieTitleValue.emit(event);
     }
 }
