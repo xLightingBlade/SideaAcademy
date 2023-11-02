@@ -1,3 +1,7 @@
 <ion-content [fullscreen]="true">
-  <movies-content [movieList] = "this.movieList" (clickedMovie)="selectActionForMovie($event)"></movies-content>
+  <movies-content
+    [movieList]="this.currentMovieList"
+    (clickedMovie)="selectActionForMovie($event)"
+    (movieRatingSliderValue)="setMovieSearchRating($event)"
+  ></movies-content>
 </ion-content>

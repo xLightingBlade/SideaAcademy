@@ -3,10 +3,10 @@ import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import {
-  AllMoviesDtoInterface,
   MovieFormInterface,
   MovieInterface,
 } from '../interfaces/movie-interface';
+import { AllResponsesDto } from 'src/app/shared/interfaces/all-response-dto';
 
 @Injectable({
   providedIn: 'root',
@@ -19,20 +19,24 @@ export class MovieService {
 
   getMovieList(): Observable<MovieInterface[]> {
     return this._http
-      .get<AllMoviesDtoInterface>(
-        `${this._baseUrl}/movies?page=0&size=25&order_by=id`
+      .get<AllResponsesDto>(
+        `${this._baseUrl}/movies?page=0&size=50&order_by=id`
       )
-      .pipe(
-        map((item: AllMoviesDtoInterface) => {
-          return item.movies;
-        })
-      );
+      .pipe(map(({ data }) => data));
   }
 
   getSingleMovie(selectedId: string | null): Observable<MovieInterface> {
     return this._http.get<MovieInterface>(
       `${this._baseUrl}/movies/${selectedId}`
     );
+  }
+
+  getMoviesByTitle(selectedTitle: string): Observable<MovieInterface[]> {
+    return this._http
+      .get<AllResponsesDto>(
+        `${this._baseUrl}/movies?title=${selectedTitle}&page=0&size=50`
+      )
+      .pipe(map(({ data }) => data));
   }
 
   createMovie(movieForm: MovieFormInterface): Observable<MovieInterface> {

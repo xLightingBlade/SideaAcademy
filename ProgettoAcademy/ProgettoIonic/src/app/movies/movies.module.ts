@@ -12,6 +12,8 @@ import { MovieEditPage } from './components/movie-edit-page';
 import { MovieCreatePage } from './components/movie-create-page';
 import { SharedHeaderModule } from '../shared/components/shared-header.module';
 import { RouterModule } from '@angular/router';
+import { toIntPipe } from '../shared/to-int.pipe';
+import { OrderBykey } from '../shared/order-by.pipe';
 
 @NgModule({
   imports: [
@@ -23,6 +25,6 @@ import { RouterModule } from '@angular/router';
     SharedHeaderModule,
     RouterModule,
   ],
-  declarations: [MoviesPage, MoviesPageContent, MovieDetail, MovieEditPage,MovieCreatePage]
+  declarations: [MoviesPage, MoviesPageContent, MovieDetail, MovieEditPage,MovieCreatePage, toIntPipe, OrderBykey]
 })
 export class MoviesPageModule {}

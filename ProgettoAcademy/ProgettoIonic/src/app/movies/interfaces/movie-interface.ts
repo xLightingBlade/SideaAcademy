@@ -39,14 +39,3 @@ export interface MovieFormInterface {
     numVotes:number
 }
 
-export interface PaginationInterface{
-    currentPage: number,
-    pageSize: number,
-    totalElements: number,
-    totalPages: number
-}
-
-export interface AllMoviesDtoInterface{
-    pagination:PaginationInterface,
-    movies:MovieInterface[]
-}
