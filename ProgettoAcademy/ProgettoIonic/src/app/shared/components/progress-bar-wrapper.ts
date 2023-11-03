@@ -9,6 +9,7 @@ export class SharedIonProgressBar implements OnInit, OnChanges {
   barColor: string = '';
   constructor() {}
   ngOnInit(): void {
+    this.barValue/= 10;
     this.setBarColor(this.barValue);
   }
 
@@ -17,13 +18,12 @@ export class SharedIonProgressBar implements OnInit, OnChanges {
   }
 
   setBarColor(value: number) {
-    if (value < 0.4) {
+    if (value < 0.5) {
       this.barColor = 'danger';
-    } else if (value >= 0.4 && value < 0.8) {
-      this.barColor = 'secondary';
+    } else if (value >= 0.5 && value < 0.8) {
+      this.barColor = 'warning';
     } else {
       this.barColor = 'primary';
     }
-    console.log(this.barValue);
   }
 }

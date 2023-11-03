@@ -19,10 +19,10 @@ export class SharedIonRangeWrapper{
     }
 
     setRangeColor(value:number) {
-        if (value < 40) {
+        if (value < 50) {
             this.sliderColor = 'danger'
-        }else if(value >= 40 && value < 80) {
-            this.sliderColor = 'secondary'
+        }else if(value >= 50 && value < 80) {
+            this.sliderColor = 'warning'
         }else {
             this.sliderColor = 'primary'
         }

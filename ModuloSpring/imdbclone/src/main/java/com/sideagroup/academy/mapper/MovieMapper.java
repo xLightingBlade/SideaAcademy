@@ -46,7 +46,7 @@ public class MovieMapper {
         dto.getPagination().setTotalElements(movies.getTotalElements());
         dto.getPagination().setTotalPages(movies.getTotalPages());
         dto.getPagination().setPageSize(size);
-        dto.getData().addAll(movies.getContent().stream().map(item -> toDto(item, false, false)).toList());
+        dto.getData().addAll(movies.getContent().stream().map(item -> toDto(item, true, false)).toList());
         return dto;
     }
 

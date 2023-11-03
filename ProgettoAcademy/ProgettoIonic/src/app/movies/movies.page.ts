@@ -80,7 +80,10 @@ export class MoviesPage {
             return {
               id: movie.id,
               name: movie.title,
-              rating: movie.rating.averageRating / 10,
+              rating: movie.rating.averageRating,
+              year:movie.year,
+              //dall'array di oggetti cast mi prendo solo il campo dei nomi, l'array risultante lo fondo in una stringa col join
+              celebrityNames:movie.cast?.map(element => element.celebrityName).join()
             };
           });
           return this.selectedRating$;
@@ -98,7 +101,7 @@ export class MoviesPage {
   }
 
   setMovieSearchRating(rating: RangeValue) {
-    const decimalRating = Number(rating) / 100;
+    const decimalRating = Number(rating) / 10;
     this.selectedRating$.next(decimalRating);
   }
 
