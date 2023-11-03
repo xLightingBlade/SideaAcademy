@@ -4,6 +4,8 @@ import { MoviesPageRoutingModule } from 'src/app/movies/movies-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
+import { SharedIonRangeWrapper } from './range-wrapper';
+import { SharedIonProgressBar } from './progress-bar-wrapper';
 @NgModule({
   imports: [
     IonicModule,
@@ -13,10 +15,10 @@ import { IonicModule } from '@ionic/angular';
     MoviesPageRoutingModule,
   ],
   declarations: [
-    SharedHeader,
+    SharedHeader, SharedIonRangeWrapper, SharedIonProgressBar
   ],
   exports: [
-    SharedHeader,
+    SharedHeader, SharedIonRangeWrapper, SharedIonProgressBar
   ]
 })
-export class SharedHeaderModule { }
+export class SharedComponentsModule { }

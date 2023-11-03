@@ -20,14 +20,7 @@
     <ion-searchbar formControlName="title" type="text"></ion-searchbar>
   </form>
 
-  <ion-range
-    labelPlacement="fixed"
-    label="Minimum rating"
-    [pin]="true"
-    [pinFormatter]="pinFormatter"
-    (ionChange)="movieRatingSliderChange($event)"
-  >
-  </ion-range>
+  <my-range (ionChange)="movieRatingSliderChange($event)"> </my-range>
   <ion-list *ngIf="movieList" id="movie-list">
     <ion-list-header>
       <ion-label>Movie list</ion-label>
@@ -51,10 +44,7 @@
       <ion-item button (click)="emitMovieIdForDetail(movie.id)">
         <ion-label>{{movie.name}}</ion-label>
         <ion-label>
-          <ion-progress-bar
-            [value]="movie.rating"
-            color="tertiary"
-          ></ion-progress-bar>
+          <my-progress-bar [barValue]="movie.rating"></my-progress-bar>
         </ion-label>
         <ion-label>{{movie.rating! | toIntPipe}}</ion-label>
       </ion-item>

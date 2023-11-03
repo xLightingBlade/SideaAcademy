@@ -9,7 +9,7 @@ import { CelebrityDetail } from './components/celebrity-detail-page';
 import { CelebrityEditPage } from './components/celebrity-edit-page';
 import { CelebritiesPageContent } from './components/celebrities-page-content';
 import { CelebrityCreatePage } from './components/celebrity-create-page';
-import { SharedHeaderModule } from '../shared/components/shared-header.module';
+import { SharedComponentsModule } from '../shared/components/shared-header.module';
 
 @NgModule({
   imports: [
@@ -18,7 +18,7 @@ import { SharedHeaderModule } from '../shared/components/shared-header.module';
     FormsModule,
     ReactiveFormsModule,
     CelebritiesPageRoutingModule,
-    SharedHeaderModule,
+    SharedComponentsModule,
   ],
   declarations: [CelebritiesPage, CelebritiesPageContent, CelebrityDetail, CelebrityEditPage,
     CelebrityCreatePage,]

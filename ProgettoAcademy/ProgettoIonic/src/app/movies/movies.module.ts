@@ -10,7 +10,7 @@ import { MovieDetail } from './components/movie-detail-page';
 import { MoviesPageRoutingModule } from './movies-routing.module';
 import { MovieEditPage } from './components/movie-edit-page';
 import { MovieCreatePage } from './components/movie-create-page';
-import { SharedHeaderModule } from '../shared/components/shared-header.module';
+import { SharedComponentsModule } from '../shared/components/shared-header.module';
 import { RouterModule } from '@angular/router';
 import { toIntPipe } from '../shared/to-int.pipe';
 import { OrderBykey } from '../shared/order-by.pipe';
@@ -22,7 +22,7 @@ import { OrderBykey } from '../shared/order-by.pipe';
     FormsModule,
     ReactiveFormsModule,
     MoviesPageRoutingModule,
-    SharedHeaderModule,
+    SharedComponentsModule,
     RouterModule,
   ],
   declarations: [MoviesPage, MoviesPageContent, MovieDetail, MovieEditPage,MovieCreatePage, toIntPipe, OrderBykey]

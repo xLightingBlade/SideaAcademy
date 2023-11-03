@@ -5,7 +5,6 @@ import { Actions } from "src/app/shared/interfaces/actions-enum";
 import { RangeCustomEvent } from "@ionic/angular";
 import { RangeValue } from "@ionic/core";
 import { FormControl, FormGroup } from "@angular/forms";
-import { debounceTime } from "rxjs";
 
 @Component({
     selector:'movies-content',
