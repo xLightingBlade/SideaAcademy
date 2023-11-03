@@ -5,8 +5,8 @@ import { MovieCastInterface } from "../movies/interfaces/movie-interface";
     name:'showCelebrityNamesPipe'
 })
 export class ShowCelebrityNamesPipe implements PipeTransform{
-    transform(cast: MovieCastInterface[]) {
-        return cast.map(element => element.celebrityName).join();
+    transform(cast: MovieCastInterface[] | undefined) {
+        return cast?.map(element => element.celebrityName).join();
     }
 
 }

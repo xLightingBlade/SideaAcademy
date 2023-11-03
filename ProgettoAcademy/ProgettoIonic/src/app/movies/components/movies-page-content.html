@@ -40,9 +40,11 @@
           Delete
         </ion-item-option>
       </ion-item-options>
-      <ion-item button (click)="emitMovieIdForDetail(movie.id)">
+      <ion-item button (click)="emitMovieIdForFooterDisplay(movie.id)">
         <ion-label class="movie-title-label">
-          <h2>{{movie.name}}</h2>
+          <!--direttiva ngclass permette di applicare una determinata classe css (in questo caso film-schifoso) se il valore di quella chiave è true
+          Quindi qui se il rating del film è minore di 5, allora sul tag h2 viene 'attivata' la relativa classe css-->
+          <h2 class="title" [ngClass]="{'film-schifoso': movie.rating < 5}">{{movie.name}}</h2>
           <p class="movie-cast-names">
             {{movie.cast | showCelebrityNamesPipe}}
           </p>
@@ -64,4 +66,4 @@
     </ion-item-sliding>
   </ion-list>
 </ion-content>
-
+<my-footer [footerContent]="footerContent" (clickedMovie)="emitMovieIdForDetail($event)"></my-footer>

@@ -12,9 +12,7 @@ import { MovieEditPage } from './components/movie-edit-page';
 import { MovieCreatePage } from './components/movie-create-page';
 import { SharedComponentsModule } from '../shared/components/shared-header.module';
 import { RouterModule } from '@angular/router';
-import { toIntPipe } from '../shared/to-int.pipe';
 import { OrderBykey } from '../shared/order-by.pipe';
-import { ShowCelebrityNamesPipe } from '../shared/show-celebrity-names.pipe';
 
 @NgModule({
   imports: [
@@ -33,9 +31,7 @@ import { ShowCelebrityNamesPipe } from '../shared/show-celebrity-names.pipe';
     MovieDetail,
     MovieEditPage,
     MovieCreatePage,
-    toIntPipe,
     OrderBykey,
-    ShowCelebrityNamesPipe,
-  ],
+  ]
 })
 export class MoviesPageModule {}

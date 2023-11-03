@@ -6,6 +6,9 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { SharedIonRangeWrapper } from './range-wrapper';
 import { SharedIonProgressBar } from './progress-bar-wrapper';
+import { FooterWrapper } from './footer-wrapper';
+import { ShowCelebrityNamesPipe } from '../show-celebrity-names.pipe';
+
 @NgModule({
   imports: [
     IonicModule,
@@ -15,10 +18,10 @@ import { SharedIonProgressBar } from './progress-bar-wrapper';
     MoviesPageRoutingModule,
   ],
   declarations: [
-    SharedHeader, SharedIonRangeWrapper, SharedIonProgressBar
+    SharedHeader, SharedIonRangeWrapper, SharedIonProgressBar, FooterWrapper, ShowCelebrityNamesPipe
   ],
   exports: [
-    SharedHeader, SharedIonRangeWrapper, SharedIonProgressBar
+    SharedHeader, SharedIonRangeWrapper, SharedIonProgressBar, FooterWrapper, ShowCelebrityNamesPipe
   ]
 })
 export class SharedComponentsModule { }

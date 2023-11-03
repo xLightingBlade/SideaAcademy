@@ -6,6 +6,7 @@ import { RangeCustomEvent } from '@ionic/angular';
 import { RangeValue } from '@ionic/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import {BehaviorSubject, Subject} from 'rxjs';
 
 @Component({
   selector: 'movies-content',
@@ -20,6 +21,8 @@ export class MoviesPageContent implements OnInit {
     Breakpoints.HandsetPortrait,
     Breakpoints.TabletPortrait,
   ];
+  footerMovie$ = new BehaviorSubject("");
+  footerContent:CommonList | undefined;
 
   @Input() movieList: CommonList[] = [];
 
@@ -29,6 +32,7 @@ export class MoviesPageContent implements OnInit {
 
   constructor(private _breakpointObs: BreakpointObserver) {
     this.setSearchForm();
+    this.footerMovie$.subscribe(movieId => this.updateFooter(movieId))
   }
   ngOnInit(): void {
     this._breakpointObs.observe(this.breakpointsToObserve).subscribe((currentBreakpoint) => {
@@ -37,6 +41,10 @@ export class MoviesPageContent implements OnInit {
             this.isInPortraitMode = true;
         }
     })
+  }
+
+  updateFooter(id:string) {
+    this.footerContent = this.movieList.find(movie => movie.id == id);
   }
 
   setSearchForm() {
@@ -55,16 +63,20 @@ export class MoviesPageContent implements OnInit {
     console.log(name + 'clicked');
   }
 
-  emitMovieIdForDetail(id: string) {
-    this.clickedMovie.emit({ id: id, actionSelected: Actions.Detail });
+  emitMovieIdForFooterDisplay(id: string) {
+    this.footerMovie$.next(id);
+  }
+
+  emitMovieIdForDetail(id:string) {
+    this.clickedMovie.emit({id, actionSelected:Actions.Detail})
   }
 
   emitMovieIdForEdit(id: string) {
-    this.clickedMovie.emit({ id: id, actionSelected: Actions.Edit });
+    this.clickedMovie.emit({ id, actionSelected: Actions.Edit });
   }
 
   emitMovieIdForDelete(id: string) {
-    this.clickedMovie.emit({ id: id, actionSelected: Actions.Delete });
+    this.clickedMovie.emit({ id, actionSelected: Actions.Delete });
   }
 
   emitEventForCreation() {

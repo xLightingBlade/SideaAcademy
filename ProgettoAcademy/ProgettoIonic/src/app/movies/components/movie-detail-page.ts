@@ -27,7 +27,6 @@ export class MovieDetail{
             
             this._movieService.getSingleMovie(this.movieId).subscribe((result:MovieInterface) => {
                 this.selectedMovie = result;
-                console.log(result);
                 this.pageTitle =  this.selectedMovie.title;
             });
             

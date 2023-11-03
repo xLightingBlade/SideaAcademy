@@ -9,12 +9,12 @@ export class SharedIonProgressBar implements OnInit, OnChanges {
   barColor: string = '';
   constructor() {}
   ngOnInit(): void {
-    this.barValue/= 10;
     this.setBarColor(this.barValue);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-      this.setBarColor(this.barValue);
+    this.barValue/= 10;
+    this.setBarColor(this.barValue);
   }
 
   setBarColor(value: number) {
