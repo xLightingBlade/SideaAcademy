@@ -8,14 +8,13 @@
       </ion-button>
     </ion-toolbar>
   </ion-header> -->
-
+<app-header
+  [pageTitle]="pageTitle"
+  [showCreateButton]="true"
+  [showBackButton]="false"
+  (clickEvent)="emitEventForCreation()"
+></app-header>
 <ion-content [fullscreen]="true">
-  <app-header
-    [pageTitle]="pageTitle"
-    [showCreateButton]="true"
-    [showBackButton]="false"
-    (clickEvent)="emitEventForCreation()"
-  ></app-header>
   <form [formGroup]="titleSearchForm">
     <ion-searchbar formControlName="title" type="text"></ion-searchbar>
   </form>
@@ -43,14 +42,26 @@
       </ion-item-options>
       <ion-item button (click)="emitMovieIdForDetail(movie.id)">
         <ion-label class="movie-title-label">
-          <h2>{{movie.name}} ({{movie.year}})</h2>
-          <p>{{movie.celebrityNames}}</p>
+          <h2>{{movie.name}}</h2>
+          <p class="movie-cast-names">
+            {{movie.cast | showCelebrityNamesPipe}}
+          </p>
+          <p *ngIf="isInPortraitMode">
+            <my-progress-bar [barValue]="movie.rating"></my-progress-bar>
+          </p>
+        </ion-label>
+        <ion-label class="rating-and-year">
+          <p>{{movie.year}}</p>
+          <h2>{{movie.rating}}</h2>
         </ion-label>
         <ion-label>
-          <my-progress-bar [barValue]="movie.rating"></my-progress-bar>
+          <my-progress-bar
+            *ngIf="!isInPortraitMode"
+            [barValue]="movie.rating"
+          ></my-progress-bar>
         </ion-label>
-        <ion-label>{{movie.rating!}}</ion-label>
       </ion-item>
     </ion-item-sliding>
   </ion-list>
 </ion-content>
+

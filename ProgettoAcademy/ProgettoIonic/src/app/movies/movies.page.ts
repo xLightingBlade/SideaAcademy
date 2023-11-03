@@ -82,8 +82,7 @@ export class MoviesPage {
               name: movie.title,
               rating: movie.rating.averageRating,
               year:movie.year,
-              //dall'array di oggetti cast mi prendo solo il campo dei nomi, l'array risultante lo fondo in una stringa col join
-              celebrityNames:movie.cast?.map(element => element.celebrityName).join()
+              cast:movie.cast,
             };
           });
           return this.selectedRating$;

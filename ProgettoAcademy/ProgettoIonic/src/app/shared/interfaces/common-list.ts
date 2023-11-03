@@ -5,5 +5,5 @@ export interface CommonList{
     name:string,
     rating?:number,
     year?:number,
-    celebrityNames?:string,
+    cast?:MovieCastInterface[],
 }
