@@ -8,26 +8,18 @@
       </ion-button>
     </ion-toolbar>
   </ion-header> -->
-
+<app-header
+  [pageTitle]="pageTitle"
+  [showCreateButton]="true"
+  [showBackButton]="false"
+  (clickEvent)="emitEventForCreation()"
+></app-header>
 <ion-content [fullscreen]="true">
-  <app-header
-    [pageTitle]="pageTitle"
-    [showCreateButton]="true"
-    [showBackButton]="false"
-    (clickEvent)="emitEventForCreation()"
-  ></app-header>
   <form [formGroup]="titleSearchForm">
     <ion-searchbar formControlName="title" type="text"></ion-searchbar>
   </form>
 
-  <ion-range
-    labelPlacement="fixed"
-    label="Minimum rating"
-    [pin]="true"
-    [pinFormatter]="pinFormatter"
-    (ionChange)="movieRatingSliderChange($event)"
-  >
-  </ion-range>
+  <my-range (ionChange)="movieRatingSliderChange($event)"> </my-range>
   <ion-list *ngIf="movieList" id="movie-list">
     <ion-list-header>
       <ion-label>Movie list</ion-label>
@@ -48,16 +40,30 @@
           Delete
         </ion-item-option>
       </ion-item-options>
-      <ion-item button (click)="emitMovieIdForDetail(movie.id)">
-        <ion-label>{{movie.name}}</ion-label>
-        <ion-label>
-          <ion-progress-bar
-            [value]="movie.rating"
-            color="tertiary"
-          ></ion-progress-bar>
+      <ion-item button (click)="emitMovieIdForFooterDisplay(movie.id)">
+        <ion-label class="movie-title-label">
+          <!--direttiva ngclass permette di applicare una determinata classe css (in questo caso film-schifoso) se il valore di quella chiave è true
+          Quindi qui se il rating del film è minore di 5, allora sul tag h2 viene 'attivata' la relativa classe css-->
+          <h2 class="title" [ngClass]="{'film-schifoso': movie.rating < 5}">{{movie.name}}</h2>
+          <p class="movie-cast-names">
+            {{movie.cast | showCelebrityNamesPipe}}
+          </p>
+          <p *ngIf="isInPortraitMode">
+            <my-progress-bar [barValue]="movie.rating"></my-progress-bar>
+          </p>
         </ion-label>
-        <ion-label>{{movie.rating! | toIntPipe}}</ion-label>
+        <ion-label class="rating-and-year">
+          <p>{{movie.year}}</p>
+          <h2>{{movie.rating}}</h2>
+        </ion-label>
+        <ion-label>
+          <my-progress-bar
+            *ngIf="!isInPortraitMode"
+            [barValue]="movie.rating"
+          ></my-progress-bar>
+        </ion-label>
       </ion-item>
     </ion-item-sliding>
   </ion-list>
 </ion-content>
+<my-footer [footerContent]="footerContent" (clickedMovie)="emitMovieIdForDetail($event)"></my-footer>

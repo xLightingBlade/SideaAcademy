@@ -1,0 +1,23 @@
+<ion-footer>
+  <ion-item *ngIf="footerContent">
+    <ion-label class="footerContent-title-label">
+      <h2>{{footerContent.name}}</h2>
+      <p class="movie-cast-names">
+        {{footerContent.cast | showCelebrityNamesPipe}}
+      </p>
+      <p *ngIf="isInPortraitMode">
+        <my-progress-bar [barValue]="footerContent.rating || 0"></my-progress-bar>
+      </p>
+    </ion-label>
+    <ion-label class="rating-and-year">
+      <p>{{footerContent.year}}</p>
+      <h2>{{footerContent.rating}}</h2>
+    </ion-label>
+    <ion-label>
+      <my-progress-bar *ngIf="!isInPortraitMode" [barValue]="footerContent.rating || 0"></my-progress-bar>
+    </ion-label>
+    <ion-label class="detail-button">
+        <ion-button fill="outline" color="tertiary" (click)="emitMovieId(footerContent.id)">Go to details</ion-button>
+    </ion-label>
+  </ion-item>
+</ion-footer>

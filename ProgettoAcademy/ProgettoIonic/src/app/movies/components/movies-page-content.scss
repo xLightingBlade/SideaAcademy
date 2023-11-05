@@ -1,0 +1,14 @@
+.movie-title-label {
+    min-width: 65%;
+}
+
+.rating-and-year {
+    max-width: 10%;
+}
+
+.title {
+    color:greenyellow;
+    &.film-schifoso {
+        color:#a52a2a;
+    }
+}

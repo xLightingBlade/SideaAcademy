@@ -80,7 +80,9 @@ export class MoviesPage {
             return {
               id: movie.id,
               name: movie.title,
-              rating: movie.rating.averageRating / 10,
+              rating: movie.rating.averageRating,
+              year:movie.year,
+              cast:movie.cast,
             };
           });
           return this.selectedRating$;
@@ -98,7 +100,7 @@ export class MoviesPage {
   }
 
   setMovieSearchRating(rating: RangeValue) {
-    const decimalRating = Number(rating) / 100;
+    const decimalRating = Number(rating) / 10;
     this.selectedRating$.next(decimalRating);
   }
 

@@ -1,0 +1,10 @@
+<div class="ion-range-wrapper">
+  <ion-range
+    labelPlacement="fixed"
+    label="Minimum rating"
+    [color]="sliderColor"
+    [pin]="true"
+    [pinFormatter]="pinFormatter"
+    (ionChange)="RatingSliderChangeEmit($event)"
+  ></ion-range>
+</div>
