@@ -15,9 +15,10 @@
   (clickEvent)="emitEventForCreation()"
 ></app-header>
 <ion-content [fullscreen]="true">
-  <form [formGroup]="titleSearchForm">
-    <ion-searchbar formControlName="title" type="text"></ion-searchbar>
-  </form>
+  <ion-toolbar>
+    <form [formGroup]="titleSearchForm">
+      <ion-searchbar formControlName="title" type="text"></ion-searchbar></form
+  ></ion-toolbar>
 
   <my-range (ionChange)="movieRatingSliderChange($event)"> </my-range>
   <ion-list *ngIf="movieList" id="movie-list">
@@ -44,7 +45,9 @@
         <ion-label class="movie-title-label">
           <!--direttiva ngclass permette di applicare una determinata classe css (in questo caso film-schifoso) se il valore di quella chiave è true
           Quindi qui se il rating del film è minore di 5, allora sul tag h2 viene 'attivata' la relativa classe css-->
-          <h2 class="title" [ngClass]="{'film-schifoso': movie.rating < 5}">{{movie.name}}</h2>
+          <h2 class="title" [ngClass]="{'film-schifoso': movie.rating < 5}">
+            {{movie.name}}
+          </h2>
           <p class="movie-cast-names">
             {{movie.cast | showCelebrityNamesPipe}}
           </p>
@@ -66,4 +69,7 @@
     </ion-item-sliding>
   </ion-list>
 </ion-content>
-<my-footer [footerContent]="footerContent" (clickedMovie)="emitMovieIdForDetail($event)"></my-footer>
+<my-footer
+  [footerContent]="footerContent"
+  (clickedMovie)="emitMovieIdForDetail($event)"
+></my-footer>
