@@ -13,8 +13,8 @@
       <p>{{footerContent.year}}</p>
       <h2>{{footerContent.rating}}</h2>
     </ion-label>
-    <ion-label>
-      <my-progress-bar *ngIf="!isInPortraitMode" [barValue]="footerContent.rating || 0"></my-progress-bar>
+    <ion-label *ngIf="!isInPortraitMode" >
+      <my-progress-bar [barValue]="footerContent.rating || 0"></my-progress-bar>
     </ion-label>
     <ion-label class="detail-button">
         <ion-button fill="outline" color="tertiary" (click)="emitMovieId(footerContent.id)">Go to details</ion-button>
